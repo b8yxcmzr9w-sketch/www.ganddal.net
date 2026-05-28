@@ -66,14 +66,7 @@
       "url": "https://www.sandnes.kommune.no",
       "description": "Kommunale tjenester for innbyggere på Ganddal og i Sandnes. Barnehageplass, byggesøknader, renovasjon og mye mer.",
       "category": "Offentlig og frivillig",
-      "ageGroups": [
-        "barn",
-        "ungdom",
-        "voksne",
-        "eldre",
-        "foreldre",
-        "familier"
-      ],
+      "logo": null,
       "tags": [
         "kommune",
         "offentlig",
@@ -82,10 +75,18 @@
         "byggesøknad",
         "renovasjon"
       ],
-      "logo": null,
-      "featured": true,
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "foreldre",
+        "familier"
+      ],
       "active": true,
-      "addedDate": "2026-05-28"
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     },
     {
       "id": "kolumbus",
@@ -93,13 +94,7 @@
       "url": "https://www.kolumbus.no",
       "description": "Buss og båt i Rogaland. Finn ruter, kjøp billett og planlegg reisen din fra Ganddal og i regionen.",
       "category": "Offentlig og frivillig",
-      "ageGroups": [
-        "barn",
-        "ungdom",
-        "voksne",
-        "eldre",
-        "familier"
-      ],
+      "logo": "https://www.kolumbus.no/favicon.ico",
       "tags": [
         "buss",
         "transport",
@@ -108,10 +103,17 @@
         "billett",
         "app"
       ],
-      "logo": null,
-      "featured": true,
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
       "active": true,
-      "addedDate": "2026-05-28"
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     },
     {
       "id": "sandnes-bibliotek",
@@ -142,14 +144,10 @@
     {
       "id": "ganddal-skole",
       "name": "Ganddal skole",
-      "url": "https://ganddal.skole.sandnes.no",
+      "url": "https://www.minskole.no/ganddal",
       "description": "Barneskole sentralt på Ganddal. Her finner du informasjon om skolen, SFO, kontaktlærere og arrangementer.",
       "category": "Skole, helse og omsorg",
-      "ageGroups": [
-        "barn",
-        "foreldre",
-        "familier"
-      ],
+      "logo": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.minskole.no/ganddal&size=128",
       "tags": [
         "skole",
         "barneskole",
@@ -157,10 +155,15 @@
         "undervisning",
         "1.-7. trinn"
       ],
-      "logo": null,
-      "featured": false,
+      "ageGroups": [
+        "barn",
+        "foreldre",
+        "familier"
+      ],
       "active": true,
-      "addedDate": "2026-05-28"
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     },
     {
       "id": "hommersaak-skole",
@@ -307,29 +310,6 @@
       "addedDate": "2026-05-28"
     },
     {
-      "id": "frivillighetssentralen",
-      "name": "Frivillighetsentralen Sandnes",
-      "url": "https://www.sandnes.kommune.no/frivillighetssentralen",
-      "description": "Møteplass og ressurssenter for frivillige og lag i Sandnes. Finn dugnadsmuligheter og aktiviteter nær deg.",
-      "category": "Offentlig og frivillig",
-      "ageGroups": [
-        "ungdom",
-        "voksne",
-        "eldre"
-      ],
-      "tags": [
-        "frivillig",
-        "dugnad",
-        "lag",
-        "foreninger",
-        "fellesskap"
-      ],
-      "logo": null,
-      "featured": false,
-      "active": true,
-      "addedDate": "2026-05-28"
-    },
-    {
       "id": "unginfo-sandnes",
       "name": "UngInfo Sandnes",
       "url": "https://unginfo.no/sandnes",
@@ -448,28 +428,6 @@
       "addedDate": "2026-05-28"
     },
     {
-      "id": "1881",
-      "name": "1881 – Finn naboer og bedrifter",
-      "url": "https://www.1881.no",
-      "description": "Søk opp naboer, bedrifter og tjenester på Ganddal og i Sandnes. Telefonkatalog og kart.",
-      "category": "Handel og service",
-      "ageGroups": [
-        "voksne",
-        "eldre"
-      ],
-      "tags": [
-        "telefonkatalog",
-        "søk",
-        "bedrifter",
-        "kart",
-        "adresse"
-      ],
-      "logo": null,
-      "featured": false,
-      "active": true,
-      "addedDate": "2026-05-28"
-    },
-    {
       "id": "skatteetaten",
       "name": "Skatteetaten",
       "url": "https://www.skatteetaten.no",
@@ -486,31 +444,6 @@
         "folkeregister",
         "adresse",
         "skattekort"
-      ],
-      "logo": null,
-      "featured": false,
-      "active": true,
-      "addedDate": "2026-05-28"
-    },
-    {
-      "id": "mattilsynet-dyr",
-      "name": "Dyrepark Sandnes / Aktiviteter",
-      "url": "https://www.sandnes.kommune.no/tjenester/kultur-idrett-og-fritid/",
-      "description": "Kommunale aktivitetstilbud, idrettsanlegg, parker og friluftsliv i Sandnes-området.",
-      "category": "Idrett og kultur",
-      "ageGroups": [
-        "barn",
-        "ungdom",
-        "voksne",
-        "eldre",
-        "familier"
-      ],
-      "tags": [
-        "friluftsliv",
-        "park",
-        "aktivitet",
-        "idrettsanlegg",
-        "natur"
       ],
       "logo": null,
       "featured": false,
@@ -661,6 +594,28 @@
         "ungdom",
         "voksne",
         "foreldre",
+        "familier"
+      ],
+      "active": true,
+      "featured": true,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
+    },
+    {
+      "id": "hjem-ditt-nabolag",
+      "name": "Ditt Nabolag",
+      "url": "https://www.dittnabolag.no",
+      "description": "Ditt nabolag er en ideell, livssynsnøytral og politisk uavhengig organisasjon hvor alle typer organisasjoner, bedrifter og privatpersoner kan engasjere seg. Vi er etablert på Ganddal i Sandnes kommune og ønsker å gjøre vårt lokalmiljø til et enda bedre sted å bo. Vi jobber for å se hverandre, hjelpe hverandre og bygge gode relasjoner på tvers av alder.",
+      "category": "Idrett og kultur",
+      "logo": "https://static.parastorage.com/client/pfavico.ico",
+      "tags": [
+        "Dugnad",
+        "frivillig",
+        "sosialt"
+      ],
+      "ageGroups": [
+        "voksne",
+        "eldre",
         "familier"
       ],
       "active": true,
