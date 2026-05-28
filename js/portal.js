@@ -160,8 +160,8 @@ function renderCard(org) {
     .slice(0, 4);
 
   return `
-<article class="card" data-site-url="${escHtml(org.url)}" role="link" tabindex="0"
-  onclick="openSite('${escHtml(org.url)}')" onkeydown="if(event.key==='Enter')openSite('${escHtml(org.url)}')">
+<article class="card" data-site-url="${escHtml(org.url)}" data-org-id="${escHtml(org.id)}"
+  role="button" tabindex="0" aria-label="Vis detaljer om ${escHtml(org.name)}">
   <div class="card-image" style="background:${cfg.bg}">
     <div class="card-screenshot" aria-hidden="true"></div>
     <div class="card-favicon-wrap">
@@ -186,8 +186,95 @@ function renderCard(org) {
 </article>`;
 }
 
-function openSite(url) {
-  window.open(url, '_blank', 'noopener');
+/* ─── Detaljmodal ─── */
+function ensureOrgModal() {
+  if (document.getElementById('orgDetailModal')) return;
+
+  const el = document.createElement('div');
+  el.className = 'portal-modal-overlay';
+  el.id = 'orgDetailModal';
+  el.setAttribute('role', 'dialog');
+  el.setAttribute('aria-modal', 'true');
+  el.setAttribute('aria-labelledby', 'pmodalName');
+  el.innerHTML = `
+    <div class="portal-modal">
+      <button class="portal-modal-close" id="pmodalClose" aria-label="Lukk">✕</button>
+      <div class="pmodal-image" id="pmodalImage">
+        <div class="pmodal-favicon-wrap">
+          <img id="pmodalLogo" src="" alt=""
+            onerror="this.style.display='none';document.getElementById('pmodalEmoji').style.display='flex'">
+          <span class="card-favicon-emoji" id="pmodalEmoji" style="display:none"></span>
+        </div>
+      </div>
+      <div class="pmodal-body">
+        <span id="pmodalCatBadge" class="card-category-badge" style="margin-bottom:.5rem"></span>
+        <h2 id="pmodalName" class="pmodal-name"></h2>
+        <p id="pmodalDesc" class="pmodal-desc"></p>
+        <div id="pmodalAges" class="card-ages" style="margin-top:.75rem"></div>
+        <div id="pmodalTags" class="pmodal-tags"></div>
+      </div>
+      <div class="pmodal-footer">
+        <span id="pmodalDomain" class="card-domain"></span>
+        <a id="pmodalVisitBtn" href="#" target="_blank" rel="noopener" class="btn-primary pmodal-visit-btn">
+          Besøk nettstedet →
+        </a>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+
+  document.getElementById('pmodalClose').addEventListener('click', closeOrgModal);
+  el.addEventListener('click', e => { if (e.target === el) closeOrgModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOrgModal(); });
+}
+
+function openOrgModal(org) {
+  ensureOrgModal();
+  const cfg = CAT_CONFIG[org.category] || { color: '#6B7280', bg: '#F3F4F6', emoji: '🔗' };
+
+  document.getElementById('pmodalImage').style.background = cfg.bg;
+  const logo = document.getElementById('pmodalLogo');
+  logo.src = getFaviconUrl(org);
+  logo.alt = org.name;
+  logo.style.display = '';
+  const emoji = document.getElementById('pmodalEmoji');
+  emoji.textContent = cfg.emoji;
+  emoji.style.display = 'none';
+
+  const badge = document.getElementById('pmodalCatBadge');
+  badge.textContent = org.category;
+  badge.style.color = cfg.color;
+  badge.style.background = cfg.bg;
+
+  document.getElementById('pmodalName').textContent = org.name;
+  document.getElementById('pmodalDesc').textContent = org.description || '';
+  document.getElementById('pmodalDomain').textContent = getDomain(org.url);
+
+  const visitBtn = document.getElementById('pmodalVisitBtn');
+  visitBtn.href = org.url;
+
+  const ageContainer = document.getElementById('pmodalAges');
+  const ageLabels = (org.ageGroups || [])
+    .map(id => portalData?.ageGroups?.find(a => a.id === id)?.label || id);
+  ageContainer.innerHTML = ageLabels.length
+    ? ageLabels.map(l => `<span class="age-tag">${escHtml(l)}</span>`).join('')
+    : '';
+
+  const tagContainer = document.getElementById('pmodalTags');
+  const tags = (org.tags || []).filter(Boolean);
+  tagContainer.innerHTML = tags.length
+    ? `<div class="pmodal-tag-row">${tags.map(t => `<span class="pmodal-tag">#${escHtml(t)}</span>`).join('')}</div>`
+    : '';
+
+  const overlay = document.getElementById('orgDetailModal');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('pmodalClose').focus();
+}
+
+function closeOrgModal() {
+  const overlay = document.getElementById('orgDetailModal');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 /* ─── Skjermbildelasting (lazy via IntersectionObserver) ─── */
@@ -268,10 +355,28 @@ function setupSuggestForm() {
   });
 }
 
+/* ─── Kortklikk (event delegation) ─── */
+function setupCardClicks() {
+  const grid = document.getElementById('cardsGrid');
+  if (!grid) return;
+  const handle = e => {
+    const card = e.target.closest('.card[data-org-id]');
+    if (!card) return;
+    // Ikke åpne modal dersom brukeren klikker på «Besøk»-lenken inni modalen
+    const org = allOrgs.find(o => o.id === card.dataset.orgId);
+    if (org) openOrgModal(org);
+  };
+  grid.addEventListener('click', handle);
+  grid.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') handle(e);
+  });
+}
+
 /* ─── Start ─── */
 document.addEventListener('DOMContentLoaded', () => {
   setupMobileMenu();
   setupSuggestForm();
+  setupCardClicks();
   const ageFilter = document.body.dataset.ageFilter || null;
   init(ageFilter);
 });
