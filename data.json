@@ -118,16 +118,10 @@
     {
       "id": "sandnes-bibliotek",
       "name": "Sandnes bibliotek",
-      "url": "https://sandnes.bibliotek.no",
+      "url": "https://sandnesbibliotek.no/nb",
       "description": "Lån bøker, e-bøker, filmer og musikk gratis. Bibliotekavdeling på Ganddal med utlånsautomat og arrangementer for alle aldre.",
       "category": "Idrett og kultur",
-      "ageGroups": [
-        "barn",
-        "ungdom",
-        "voksne",
-        "eldre",
-        "familier"
-      ],
+      "logo": "https://cdn.sanity.io/images/v0tvkqmw/production/3125afc77060425797b5c27c42f02df727f6012c-818x1080.svg?bg=0000&w=100&h=100&fm=png&fit=fillmax",
       "tags": [
         "bibliotek",
         "bøker",
@@ -136,10 +130,17 @@
         "e-bøker",
         "gratis"
       ],
-      "logo": null,
-      "featured": false,
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
       "active": true,
-      "addedDate": "2026-05-28"
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     },
     {
       "id": "ganddal-skole",
@@ -188,30 +189,6 @@
       "addedDate": "2026-05-28"
     },
     {
-      "id": "nav-sandnes",
-      "name": "NAV Sandnes",
-      "url": "https://www.nav.no/no/lokal/sandnes",
-      "description": "Hjelp til arbeid, trygd, sosiale tjenester og dagpenger. NAV-kontor i Sandnes sentrum betjener innbyggere på Ganddal.",
-      "category": "Offentlig og frivillig",
-      "ageGroups": [
-        "ungdom",
-        "voksne",
-        "eldre"
-      ],
-      "tags": [
-        "NAV",
-        "arbeid",
-        "trygd",
-        "dagpenger",
-        "sosialhjelp",
-        "jobbsøk"
-      ],
-      "logo": null,
-      "featured": false,
-      "active": true,
-      "addedDate": "2026-05-28"
-    },
-    {
       "id": "sandnes-kulturskole",
       "name": "Sandnes kulturskole",
       "url": "https://www.sandnes.kommune.no/tjenester/kultur-idrett-og-fritid/kulturskole/",
@@ -239,16 +216,10 @@
     {
       "id": "legevakten-sandnes",
       "name": "Legevakten Sandnes",
-      "url": "https://www.sandnes.kommune.no/tjenester/helse-og-omsorg/legevakt/",
+      "url": "https://www.sandnes.kommune.no/sti/helse/legevakt-fastlege-og-kommuneoverlege/legevakt/",
       "description": "Øyeblikkelig hjelp utenom fastlegekontorenes åpningstider. Ring 116 117 for legevaktråd.",
       "category": "Skole, helse og omsorg",
-      "ageGroups": [
-        "barn",
-        "ungdom",
-        "voksne",
-        "eldre",
-        "familier"
-      ],
+      "logo": "https://www.sandnes.kommune.no/external/ssp/assets/favicon.ico",
       "tags": [
         "legevakt",
         "helse",
@@ -256,10 +227,17 @@
         "akutt",
         "116117"
       ],
-      "logo": null,
-      "featured": false,
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
       "active": true,
-      "addedDate": "2026-05-28"
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     },
     {
       "id": "helsestasjon-sandnes",
@@ -396,31 +374,6 @@
         "dåp",
         "gudstjeneste",
         "tro"
-      ],
-      "logo": null,
-      "featured": false,
-      "active": true,
-      "addedDate": "2026-05-28"
-    },
-    {
-      "id": "helsenorge",
-      "name": "Helsenorge – Fastlege og helsetjenester",
-      "url": "https://www.helsenorge.no",
-      "description": "Bytt fastlege, sjekk timeavtaler, bestill e-resept og finn helsetjenester i nærheten via helsenorge.no.",
-      "category": "Skole, helse og omsorg",
-      "ageGroups": [
-        "barn",
-        "ungdom",
-        "voksne",
-        "eldre",
-        "familier"
-      ],
-      "tags": [
-        "fastlege",
-        "helse",
-        "resept",
-        "time",
-        "helsetjenester"
       ],
       "logo": null,
       "featured": false,
