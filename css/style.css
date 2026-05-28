@@ -670,6 +670,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: color var(--transition);
 }
 .admin-tab.active { color: var(--red); border-bottom-color: var(--red); }
+.admin-section { display: none; }
+.admin-section.active { display: block; }
 .admin-tab-content { display: none; }
 .admin-tab-content.active { display: block; }
 .admin-actions {
