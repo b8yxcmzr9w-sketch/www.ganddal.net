@@ -38,29 +38,6 @@
   ],
   "organizations": [
     {
-      "id": "ganddal-fk",
-      "name": "Ganddal FK",
-      "url": "https://www.ganddal-fk.no",
-      "description": "Fotballklubben på Ganddal med tilbud for jenter og gutter fra 5 år og oppover, samt voksenlag.",
-      "category": "Idrett og kultur",
-      "ageGroups": [
-        "barn",
-        "ungdom",
-        "voksne",
-        "familier"
-      ],
-      "tags": [
-        "fotball",
-        "sport",
-        "lag",
-        "trening"
-      ],
-      "logo": null,
-      "featured": true,
-      "active": true,
-      "addedDate": "2026-05-28"
-    },
-    {
       "id": "sandnes-kommune",
       "name": "Sandnes kommune",
       "url": "https://www.sandnes.kommune.no",
