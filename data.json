@@ -39,30 +39,26 @@
   "organizations": [
     {
       "id": "ganddal-fk",
-      "name": "Ganddal IL",
-      "url": "https://www.ganddalil.no",
-      "description": "Ganddal IL er ett idrettslag med over 1500 medlemmer. Vi har 4 grener i idrettslaget. Fotball, håndball, orientering og turn.",
+      "name": "Ganddal FK",
+      "url": "https://www.ganddal-fk.no",
+      "description": "Fotballklubben på Ganddal med tilbud for jenter og gutter fra 5 år og oppover, samt voksenlag.",
       "category": "Idrett og kultur",
-      "logo": "https://spond.com/storage/upload/48EBC4CEBDC40BDDF7F6EF885F55B909/1744203563_5FBDD523/GIL-Logo-360x360.jpeg",
-      "tags": [
-        "Fotball",
-        "håndball",
-        "orientering",
-        "turn",
-        "sport",
-        "lag",
-        "trening"
-      ],
       "ageGroups": [
         "barn",
         "ungdom",
         "voksne",
         "familier"
       ],
-      "active": true,
+      "tags": [
+        "fotball",
+        "sport",
+        "lag",
+        "trening"
+      ],
+      "logo": null,
       "featured": true,
-      "addedDate": "2026-05-28",
-      "updatedDate": "2026-05-28"
+      "active": true,
+      "addedDate": "2026-05-28"
     },
     {
       "id": "sandnes-kommune",
@@ -646,6 +642,31 @@
       "featured": false,
       "active": true,
       "addedDate": "2026-05-28"
+    },
+    {
+      "id": "ganddal-idrettslag",
+      "name": "Ganddal Idrettslag",
+      "url": "https://www.ganddalil.no",
+      "description": "Ganddal IL er ett idrettslag med over 1500 medlemmer. Vi har 4 grener i idrettslaget. Fotball, håndball, orientering og turn.",
+      "category": "Idrett og kultur",
+      "logo": "https://spond.com/storage/upload/48EBC4CEBDC40BDDF7F6EF885F55B909/1744203563_5FBDD523/GIL-Logo-360x360.jpeg",
+      "tags": [
+        "Fotball",
+        "håndball",
+        "orientering",
+        "turn"
+      ],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "foreldre",
+        "familier"
+      ],
+      "active": true,
+      "featured": true,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     }
   ],
   "suggestions": []
