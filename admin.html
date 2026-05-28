@@ -61,6 +61,7 @@
       <!-- Faner -->
       <div class="admin-tabs" role="tablist">
         <button class="admin-tab active" data-tab="orgs" role="tab">Organisasjoner</button>
+        <button class="admin-tab" data-tab="pages" role="tab">Undersider</button>
         <button class="admin-tab" data-tab="export" role="tab">Eksport / Publisering</button>
         <button class="admin-tab" data-tab="settings" role="tab">Innstillinger</button>
       </div>
@@ -92,6 +93,39 @@
               <tr><td colspan="6" style="text-align:center;color:#9CA3AF;padding:2rem">Laster…</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- Fane: Undersider -->
+      <div id="tab-pages" class="admin-tab-content">
+        <div class="page-tab-selector" id="pageTabSelector">
+          <button class="page-sel-btn active" data-pagekey="barn">For barn</button>
+          <button class="page-sel-btn" data-pagekey="ungdom">For ungdom</button>
+          <button class="page-sel-btn" data-pagekey="voksne">For voksne</button>
+          <button class="page-sel-btn" data-pagekey="foreldre">For foreldre</button>
+          <button class="page-sel-btn" data-pagekey="eldre">For eldre</button>
+          <button class="page-sel-btn" data-pagekey="ny-pa-ganddal">Ny på Ganddal</button>
+        </div>
+
+        <div style="background:white;border:1px solid #E2E8F0;border-radius:10px;padding:1.25rem;margin-bottom:1rem">
+          <h3 style="font-size:.9rem;font-weight:600;margin-bottom:.75rem">Sidetittel og ingress</h3>
+          <div class="form-group">
+            <label for="pageHeroTitle">Tittel</label>
+            <input type="text" id="pageHeroTitle">
+          </div>
+          <div class="form-group" style="margin-bottom:.5rem">
+            <label for="pageHeroDesc">Ingress</label>
+            <textarea id="pageHeroDesc" rows="2"></textarea>
+          </div>
+          <button class="btn-primary" style="margin-top:.25rem" onclick="savePageHero()">Lagre tittel og ingress</button>
+        </div>
+
+        <div style="background:white;border:1px solid #E2E8F0;border-radius:10px;padding:1.25rem">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+            <h3 style="font-size:.9rem;font-weight:600">Info-kort</h3>
+            <button class="btn-primary" onclick="openInfoCardModal(null)">+ Legg til</button>
+          </div>
+          <div id="infoCardsAdmin"></div>
         </div>
       </div>
 
@@ -241,6 +275,36 @@
 
         <div class="modal-actions">
           <button type="button" class="btn-secondary" id="modalCancel">Avbryt</button>
+          <button type="submit" class="btn-primary">Lagre</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: Info-kort ===== -->
+  <div class="modal-overlay" id="infoCardModal" role="dialog" aria-modal="true" aria-labelledby="icModalTitle">
+    <div class="modal" style="max-width:460px">
+      <div class="modal-header">
+        <h2 id="icModalTitle">Info-kort</h2>
+        <button class="modal-close" id="icModalClose" aria-label="Lukk">✕</button>
+      </div>
+      <form id="infoCardForm">
+        <div class="form-row">
+          <div class="form-group" style="flex:0 0 80px">
+            <label for="icIcon">Ikon</label>
+            <input type="text" id="icIcon" placeholder="⚽" style="font-size:1.6rem;text-align:center;padding:.4rem">
+          </div>
+          <div class="form-group" style="flex:1">
+            <label for="icTitle">Tittel *</label>
+            <input type="text" id="icTitle" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="icText">Tekst *</label>
+          <textarea id="icText" rows="4" required></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="icModalCancel">Avbryt</button>
           <button type="submit" class="btn-primary">Lagre</button>
         </div>
       </form>

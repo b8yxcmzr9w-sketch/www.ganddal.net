@@ -27,6 +27,7 @@ async function init(ageFilter) {
     buildCategoryFilters();
     buildAgeFilters();
     buildSuggestCategorySelect();
+    renderPageContent();
     setupSearch();
     applyFilters();
   } catch (err) {
@@ -73,6 +74,28 @@ function buildAgeFilters() {
     activeAge = chip.dataset.age;
     applyFilters();
   });
+}
+
+/* ─── Sideinnhold fra data.json ─── */
+function renderPageContent() {
+  const pageKey = document.body.dataset.page;
+  if (!pageKey || !portalData?.pages?.[pageKey]) return;
+  const page = portalData.pages[pageKey];
+
+  // Hero-tittel og ingress
+  const h1 = document.querySelector('.hero-content h1');
+  const p  = document.querySelector('.hero-content p');
+  if (h1 && page.heroTitle)       h1.textContent = page.heroTitle;
+  if (p  && page.heroDescription) p.textContent  = page.heroDescription;
+
+  // Info-kort
+  const container = document.getElementById('infoCards');
+  if (!container) return;
+  container.innerHTML = (page.infoCards || []).map(card => `
+    <div class="info-card">
+      <div class="info-card-icon">${card.icon || ''}</div>
+      <div><h3>${escHtml(card.title)}</h3><p>${escHtml(card.text)}</p></div>
+    </div>`).join('');
 }
 
 function buildSuggestCategorySelect() {

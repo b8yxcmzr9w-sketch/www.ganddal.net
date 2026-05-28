@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body data-age-filter="eldre">
+<body data-age-filter="eldre" data-page="eldre">
 
   <nav class="navbar">
     <div class="nav-inner">
@@ -64,33 +64,7 @@
       </div>
     </div>
 
-    <div class="info-cards" style="margin-bottom:2rem">
-      <div class="info-card">
-        <div class="info-card-icon">🏥</div>
-        <div><h3>Helse og omsorg</h3><p>Fastlege, hjemmesykepleie og eldreomsorgtjenester via Sandnes kommune. Helsenorge.no for timeavtaler.</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">🚌</div>
-        <div><h3>Transport</h3><span style="background:#FEF3C7;color:#92400E;font-size:.75rem;padding:.15rem .5rem;border-radius:20px;font-weight:600">Husk honnørrabatt!</span>
-        <p style="margin-top:.35rem">Kolumbus gir rabatt til deg over 67 år. Bestill TT-transport via kommunen ved behov.</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">📚</div>
-        <div><h3>Bibliotek</h3><p>Sandnes bibliotek har e-bøker, lydbøker og leseklubb. Gratis og tilgjengelig på nett og lokalt.</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">🤝</div>
-        <div><h3>Besøkstjeneste</h3><p>Røde Kors og Frivillighetsentralen tilbyr selskap og hjelp for deg som ønsker det.</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">⛪</div>
-        <div><h3>Menighet og fellesskap</h3><p>Sandnes kirke og lokale menigheter har aktiviteter og fellesskap for eldre i nærmiljøet.</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">💰</div>
-        <div><h3>Trygd og ytelser</h3><p>NAV Sandnes hjelper deg med alderspensjon, uføretrygd og andre rettigheter du har krav på.</p></div>
-      </div>
-    </div>
+    <div class="info-cards" id="infoCards" style="margin-bottom:2rem"></div>
 
     <h2 class="section-title">Nyttige nettsider for eldre (65+)</h2>
     <div class="cards-grid" id="cardsGrid" aria-live="polite"></div>

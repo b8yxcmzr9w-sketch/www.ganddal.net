@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body data-age-filter="ungdom">
+<body data-age-filter="ungdom" data-page="ungdom">
 
   <nav class="navbar">
     <div class="nav-inner">
@@ -53,24 +53,7 @@
   </header>
 
   <main class="subpage-content">
-    <div class="info-cards" style="margin-bottom:2rem">
-      <div class="info-card">
-        <div class="info-card-icon">⚽</div>
-        <div><h3>Sport og idrett</h3><p>Ganddal FK og Sandnes Ulf tilbyr fotball og treningmuligheter. Sjekk også andre idrettslag.</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">💼</div>
-        <div><h3>Jobb og økonomi</h3><p>UngInfo og NAV hjelper deg med første jobb, CV, intervjutrening og studentøkonomi.</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">🎭</div>
-        <div><h3>Kultur og kreativitet</h3><p>Sandnes kulturskole har tilbud innen musikk, dans og drama – også for tenåringer.</p></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">🚌</div>
-        <div><h3>Ungdomskort på buss</h3><p>Husk ungdomsrabatt på Kolumbus! Billigere månedskort for deg under 20 år.</p></div>
-      </div>
-    </div>
+    <div class="info-cards" id="infoCards" style="margin-bottom:2rem"></div>
 
     <h2 class="section-title">Tilbud for ungdom (13–19 år)</h2>
     <div class="cards-grid" id="cardsGrid" aria-live="polite"></div>

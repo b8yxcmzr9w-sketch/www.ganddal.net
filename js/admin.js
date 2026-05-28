@@ -5,11 +5,22 @@ const STORAGE_KEY_SESSION = 'ganddal_admin_sess';
 const STORAGE_KEY_TOKEN   = 'ganddal_github_token';
 const STORAGE_KEY_REPO    = 'ganddal_github_repo';
 
-let adminData    = null;
-let editingIndex = null;
-let sortCol      = null;   // null = standardsortering
-let sortDir      = 'asc';
-let isDirty      = false;  // true = upubliserte endringer
+let adminData      = null;
+let editingIndex   = null;
+let sortCol        = null;
+let sortDir        = 'asc';
+let isDirty        = false;
+let currentPageKey = 'barn';
+let editingCardIdx = null;
+
+const PAGE_LABELS = {
+  'barn':          'For barn',
+  'ungdom':        'For ungdom',
+  'voksne':        'For voksne',
+  'foreldre':      'For foreldre',
+  'eldre':         'For eldre',
+  'ny-pa-ganddal': 'Ny på Ganddal'
+};
 
 /* ─── SHA-256 hashing ─── */
 async function sha256(text) {
@@ -338,6 +349,7 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     tab.classList.add('active');
     const target = document.getElementById('tab-' + tab.dataset.tab);
     if (target) target.classList.add('active');
+    if (tab.dataset.tab === 'pages') renderPageAdmin();
   });
 });
 
@@ -465,6 +477,125 @@ function deleteOrg(index) {
   showToast('Slettet', 'success');
 }
 window.deleteOrg = deleteOrg;
+
+/* ─── Undersider – sideselektor ─── */
+document.getElementById('pageTabSelector')?.addEventListener('click', e => {
+  const btn = e.target.closest('.page-sel-btn');
+  if (!btn) return;
+  currentPageKey = btn.dataset.pagekey;
+  document.querySelectorAll('.page-sel-btn').forEach(b => b.classList.toggle('active', b === btn));
+  renderPageAdmin();
+});
+
+function ensurePages() {
+  if (!adminData.pages) adminData.pages = {};
+  if (!adminData.pages[currentPageKey]) adminData.pages[currentPageKey] = { heroTitle: '', heroDescription: '', infoCards: [] };
+  return adminData.pages[currentPageKey];
+}
+
+function renderPageAdmin() {
+  const page = adminData?.pages?.[currentPageKey] || {};
+  document.getElementById('pageHeroTitle').value = page.heroTitle || '';
+  document.getElementById('pageHeroDesc').value  = page.heroDescription || '';
+  renderInfoCardsAdmin();
+}
+window.renderPageAdmin = renderPageAdmin;
+
+function renderInfoCardsAdmin() {
+  const container = document.getElementById('infoCardsAdmin');
+  if (!container) return;
+  const cards = adminData?.pages?.[currentPageKey]?.infoCards || [];
+  if (!cards.length) {
+    container.innerHTML = '<p style="color:#9CA3AF;text-align:center;padding:1rem 0">Ingen info-kort enda</p>';
+    return;
+  }
+  container.innerHTML = cards.map((card, i) => `
+    <div class="ic-admin-row">
+      <span class="ic-admin-icon">${esc(card.icon || '–')}</span>
+      <div class="ic-admin-body">
+        <strong>${esc(card.title)}</strong>
+        <span>${esc((card.text || '').slice(0, 70))}${(card.text || '').length > 70 ? '…' : ''}</span>
+      </div>
+      <div style="display:flex;gap:.35rem;flex-shrink:0">
+        <button class="btn-sm btn-secondary" onclick="moveInfoCard(${i},-1)" title="Flytt opp" ${i === 0 ? 'disabled' : ''}>↑</button>
+        <button class="btn-sm btn-secondary" onclick="moveInfoCard(${i},1)"  title="Flytt ned" ${i === cards.length - 1 ? 'disabled' : ''}>↓</button>
+        <button class="btn-sm btn-edit"   onclick="openInfoCardModal(${i})">Rediger</button>
+        <button class="btn-sm btn-delete" onclick="deleteInfoCard(${i})">Slett</button>
+      </div>
+    </div>`).join('');
+}
+
+function savePageHero() {
+  const page = ensurePages();
+  page.heroTitle       = document.getElementById('pageHeroTitle').value.trim();
+  page.heroDescription = document.getElementById('pageHeroDesc').value.trim();
+  adminData.meta.lastUpdated = new Date().toISOString().slice(0, 10);
+  setDirty(true);
+  showToast('Tittel og ingress lagret', 'success');
+}
+window.savePageHero = savePageHero;
+
+function openInfoCardModal(index) {
+  editingCardIdx = index;
+  const cards = adminData?.pages?.[currentPageKey]?.infoCards || [];
+  const card  = index !== null ? cards[index] : null;
+  document.getElementById('icModalTitle').textContent = card ? 'Rediger info-kort' : 'Nytt info-kort';
+  document.getElementById('icIcon').value  = card?.icon  || '';
+  document.getElementById('icTitle').value = card?.title || '';
+  document.getElementById('icText').value  = card?.text  || '';
+  document.getElementById('infoCardModal').classList.add('open');
+}
+window.openInfoCardModal = openInfoCardModal;
+
+function closeInfoCardModal() { document.getElementById('infoCardModal').classList.remove('open'); }
+document.getElementById('icModalClose')?.addEventListener('click',  closeInfoCardModal);
+document.getElementById('icModalCancel')?.addEventListener('click', closeInfoCardModal);
+document.getElementById('infoCardModal')?.addEventListener('click', e => { if (e.target === document.getElementById('infoCardModal')) closeInfoCardModal(); });
+
+document.getElementById('infoCardForm')?.addEventListener('submit', e => {
+  e.preventDefault();
+  const page = ensurePages();
+  const card = {
+    icon:  document.getElementById('icIcon').value.trim(),
+    title: document.getElementById('icTitle').value.trim(),
+    text:  document.getElementById('icText').value.trim()
+  };
+  if (editingCardIdx !== null) {
+    page.infoCards[editingCardIdx] = card;
+    showToast('Info-kort oppdatert', 'success');
+  } else {
+    page.infoCards.push(card);
+    showToast('Info-kort lagt til', 'success');
+  }
+  adminData.meta.lastUpdated = new Date().toISOString().slice(0, 10);
+  setDirty(true);
+  closeInfoCardModal();
+  renderInfoCardsAdmin();
+});
+
+function deleteInfoCard(index) {
+  const page = adminData?.pages?.[currentPageKey];
+  if (!page) return;
+  if (!confirm('Slett dette info-kortet?')) return;
+  page.infoCards.splice(index, 1);
+  adminData.meta.lastUpdated = new Date().toISOString().slice(0, 10);
+  setDirty(true);
+  renderInfoCardsAdmin();
+  showToast('Slettet', 'success');
+}
+window.deleteInfoCard = deleteInfoCard;
+
+function moveInfoCard(index, dir) {
+  const cards = adminData?.pages?.[currentPageKey]?.infoCards;
+  if (!cards) return;
+  const newIdx = index + dir;
+  if (newIdx < 0 || newIdx >= cards.length) return;
+  [cards[index], cards[newIdx]] = [cards[newIdx], cards[index]];
+  adminData.meta.lastUpdated = new Date().toISOString().slice(0, 10);
+  setDirty(true);
+  renderInfoCardsAdmin();
+}
+window.moveInfoCard = moveInfoCard;
 
 /* ─── Last ned data.json ─── */
 document.getElementById('downloadBtn')?.addEventListener('click', () => {
