@@ -249,15 +249,10 @@
     {
       "id": "sandnes-roede-kors",
       "name": "Sandnes Røde Kors",
-      "url": "https://www.rodekors.no/lokalforeninger/sandnes/",
+      "url": "https://www.rodekors.no/lokalforeninger/rogaland/sandnes/",
       "description": "Frivillig hjelpeorganisasjon med besøkstjeneste, nødhjelp og kurs. Alle kan bidra eller motta hjelp.",
       "category": "Offentlig og frivillig",
-      "ageGroups": [
-        "ungdom",
-        "voksne",
-        "eldre",
-        "familier"
-      ],
+      "logo": "https://www.rodekors.no/UI/android-chrome-192x192.png",
       "tags": [
         "frivillig",
         "Røde Kors",
@@ -266,10 +261,16 @@
         "kurs",
         "nødhjelp"
       ],
-      "logo": null,
-      "featured": false,
+      "ageGroups": [
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
       "active": true,
-      "addedDate": "2026-05-28"
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     },
     {
       "id": "sandnes-ulf",
