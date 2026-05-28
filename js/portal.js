@@ -343,7 +343,17 @@ function setupSuggestForm() {
         headers: { 'Accept': 'application/json' }
       });
       if (res.ok) {
-        form.parentElement.innerHTML = '<div class="form-success">Takk for forslaget! Vi vurderer det og legger det til om det passer.</div>';
+        // Bygg direktelenke til admin med forhåndsutfylte felt
+        const p = new URLSearchParams();
+        p.set('add', '1');
+        for (const [k, v] of new FormData(form)) p.set(k, v);
+        const adminLink = 'admin.html?' + p.toString();
+
+        form.parentElement.innerHTML = `
+          <div class="form-success">
+            Takk for forslaget! Vi vurderer det og legger det til om det passer.
+            <a href="${adminLink}" class="form-admin-link">↗ Legg til i portalen (admin)</a>
+          </div>`;
       } else {
         throw new Error('server');
       }

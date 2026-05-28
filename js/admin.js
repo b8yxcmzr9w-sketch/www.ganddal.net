@@ -41,10 +41,11 @@ async function init() {
   if (sessionStorage.getItem(STORAGE_KEY_SESSION) === 'yes') {
     show('panel');
     await loadData();
-    return;
+    return true;   // innlogget
   }
   const hash = localStorage.getItem(STORAGE_KEY_HASH);
   show(hash ? 'login' : 'setup');
+  return false;    // ikke innlogget
 }
 
 /* ─── Oppsettskjema (første gang) ─── */
@@ -72,6 +73,9 @@ document.getElementById('loginForm')?.addEventListener('submit', async e => {
     sessionStorage.setItem(STORAGE_KEY_SESSION, 'yes');
     show('panel');
     await loadData();
+    // Gjenopprett ev. forhåndsutfylling fra forslagslenke
+    const saved = sessionStorage.getItem('ganddal_prefill');
+    if (saved) { sessionStorage.removeItem('ganddal_prefill'); history.replaceState(null,'',location.pathname + saved); prefillFromUrl(); }
   } else {
     errEl.textContent = 'Feil passord.';
   }
@@ -663,5 +667,41 @@ async function publishToGitHub() {
 }
 window.publishToGitHub = publishToGitHub;
 
+/* ─── Forhåndsutfyll fra URL-parametere (forslagslenke) ─── */
+function prefillFromUrl() {
+  const p = new URLSearchParams(location.search);
+  if (!p.has('add')) return;
+
+  // Fjern parameterne fra URL uten å laste siden på nytt
+  history.replaceState(null, '', location.pathname);
+
+  // Vent til kategorier og aldersgrupper er lastet inn
+  openAddModal();
+  const name     = p.get('name')        || '';
+  const url      = p.get('url')         || '';
+  const category = p.get('category')    || '';
+  const message  = p.get('message')     || '';
+
+  if (name)     document.getElementById('orgName').value        = name;
+  if (url)      document.getElementById('orgUrl').value         = url;
+  if (message)  document.getElementById('orgDescription').value = message;
+  if (category) {
+    const sel = document.getElementById('orgCategory');
+    // Prøv eksakt match, ellers velg kategori som inneholder ordet
+    const opt = [...sel.options].find(o =>
+      o.value.toLowerCase() === category.toLowerCase() ||
+      o.value.toLowerCase().includes(category.toLowerCase())
+    );
+    if (opt) sel.value = opt.value;
+  }
+}
+
 /* ─── Start ─── */
-document.addEventListener('DOMContentLoaded', () => { init(); loadGithubSettings(); });
+document.addEventListener('DOMContentLoaded', () => {
+  // Bevar ?add-parametere over innlogging ved å lagre dem i sessionStorage
+  const p = new URLSearchParams(location.search);
+  if (p.has('add')) sessionStorage.setItem('ganddal_prefill', location.search);
+
+  init().then(loggedIn => { if (loggedIn) prefillFromUrl(); });
+  loadGithubSettings();
+});
