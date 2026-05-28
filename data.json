@@ -242,25 +242,32 @@
     {
       "id": "helsestasjon-sandnes",
       "name": "Helsestasjon – Sandnes",
-      "url": "https://www.sandnes.kommune.no/tjenester/helse-og-omsorg/helsestasjon/",
-      "description": "Helsetilbud for gravide, småbarnsforeldre og barn 0–5 år. Vaksinasjonsprogram og skolehelsetjeneste.",
+      "url": "https://www.sandnes.kommune.no/sti/barn-unge-og-familie/helsestasjonstjenester/",
+      "description": "Helsestasjon for flyktninger\nJordmortjeneste\nSkolehelsetjenesten\nHelsestasjon for ungdom og Helsestasjon for gutter\nHelsestasjon for barn\nForeldrestøtte",
       "category": "Skole, helse og omsorg",
-      "ageGroups": [
-        "barn",
-        "foreldre",
-        "familier"
-      ],
+      "logo": "https://www.sandnes.kommune.no/external/ssp/assets/favicon.ico",
       "tags": [
         "helsestasjon",
         "barn",
         "gravid",
         "vaksinasjon",
-        "helsesykepleier"
+        "helsesykepleier",
+        "ungdom",
+        "gutter",
+        "foreldre",
+        "jordmor",
+        "flyktninger"
       ],
-      "logo": null,
-      "featured": false,
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "foreldre",
+        "familier"
+      ],
       "active": true,
-      "addedDate": "2026-05-28"
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     },
     {
       "id": "sandnes-roede-kors",
@@ -281,27 +288,6 @@
         "besøkstjeneste",
         "kurs",
         "nødhjelp"
-      ],
-      "logo": null,
-      "featured": false,
-      "active": true,
-      "addedDate": "2026-05-28"
-    },
-    {
-      "id": "unginfo-sandnes",
-      "name": "UngInfo Sandnes",
-      "url": "https://unginfo.no/sandnes",
-      "description": "Informasjon, kurs og aktiviteter for ungdom i Sandnes. Rådgivning om jobb, økonomi, helse og fritid.",
-      "category": "Offentlig og frivillig",
-      "ageGroups": [
-        "ungdom"
-      ],
-      "tags": [
-        "ungdom",
-        "informasjon",
-        "rådgivning",
-        "aktivitet",
-        "jobb"
       ],
       "logo": null,
       "featured": false,
@@ -336,30 +322,45 @@
     {
       "id": "voksenopplaering",
       "name": "Sandnes voksenopplæring",
-      "url": "https://www.sandnes.kommune.no/tjenester/utdanning-og-skole/voksenopplaering/",
+      "url": "https://www.sandnes.kommune.no/sti/barn-unge-og-familie/skole/voksenopplaring/",
       "description": "Norskopplæring, grunnskoleopplæring for voksne og introduksjonsprogram for nyankomne innvandrere.",
       "category": "Skole, helse og omsorg",
-      "ageGroups": [
-        "voksne"
-      ],
+      "logo": "https://www.sandnes.kommune.no/external/ssp/assets/favicon.ico",
       "tags": [
         "norsk",
         "voksenopplæring",
         "innvandrer",
         "språk",
-        "introduksjonsprogram"
+        "introduksjonsprogram",
+        "logoped"
       ],
-      "logo": null,
-      "featured": false,
+      "ageGroups": [
+        "voksne",
+        "foreldre",
+        "familier"
+      ],
       "active": true,
-      "addedDate": "2026-05-28"
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     },
     {
       "id": "sandneskirken",
-      "name": "Sandnes kirke",
-      "url": "https://sandneskirken.no",
-      "description": "Kirke og menighet i Sandnesregionen. Gudstjenester, konfirmasjon, dåp, begravelse og menighetsliv.",
+      "name": "Gand kirke",
+      "url": "https://www.kirken.no/gand",
+      "description": "Gand menighet er en mangfoldig menighet, kanskje mer enn du tror. Vi håper du finner et felleskap eller en aktivitet her som passer for deg. Bli med og skap den kirka du vil vi skal være.",
       "category": "Idrett og kultur",
+      "logo": "https://www.kirken.no/img/favicon.ico",
+      "tags": [
+        "kirke",
+        "menighet",
+        "konfirmasjon",
+        "dåp",
+        "gudstjeneste",
+        "tro",
+        "samtale",
+        "bryllup"
+      ],
       "ageGroups": [
         "barn",
         "ungdom",
@@ -367,41 +368,10 @@
         "eldre",
         "familier"
       ],
-      "tags": [
-        "kirke",
-        "menighet",
-        "konfirmasjon",
-        "dåp",
-        "gudstjeneste",
-        "tro"
-      ],
-      "logo": null,
-      "featured": false,
       "active": true,
-      "addedDate": "2026-05-28"
-    },
-    {
-      "id": "skatteetaten",
-      "name": "Skatteetaten",
-      "url": "https://www.skatteetaten.no",
-      "description": "Skattemelding, folkeregister, adresseregistrering og skattekort. Meld adresseendring her.",
-      "category": "Offentlig og frivillig",
-      "ageGroups": [
-        "ungdom",
-        "voksne",
-        "eldre"
-      ],
-      "tags": [
-        "skatt",
-        "skattemelding",
-        "folkeregister",
-        "adresse",
-        "skattekort"
-      ],
-      "logo": null,
       "featured": false,
-      "active": true,
-      "addedDate": "2026-05-28"
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     },
     {
       "id": "rema-ganddal",
@@ -573,6 +543,33 @@
       ],
       "active": true,
       "featured": true,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
+    },
+    {
+      "id": "ganddal-legesenter",
+      "name": "Ganddal legesenter",
+      "url": "https://ganddallegesenter.no",
+      "description": "Ganddal legesenter ble etablert i 1983, og holder til i Olabakken 5 i Sandnes\nPå legekontoret jobber 5 fastleger og 4 helsesekretærer.",
+      "category": "Skole, helse og omsorg",
+      "logo": "https://ganddallegesenter.no/wp-content/uploads/sites/4/2026/04/cropped-Ganddal-270x270.png",
+      "tags": [
+        "Lege",
+        "Legesenter",
+        "Vaksine",
+        "helse",
+        "fastlege"
+      ],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "foreldre",
+        "familier"
+      ],
+      "active": true,
+      "featured": false,
       "addedDate": "2026-05-28",
       "updatedDate": "2026-05-28"
     }
