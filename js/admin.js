@@ -1,7 +1,9 @@
 /* ===== GANDDAL PORTAL – ADMIN.JS ===== */
 
-const STORAGE_KEY_HASH = 'ganddal_admin_hash';
+const STORAGE_KEY_HASH    = 'ganddal_admin_hash';
 const STORAGE_KEY_SESSION = 'ganddal_admin_sess';
+const STORAGE_KEY_TOKEN   = 'ganddal_github_token';
+const STORAGE_KEY_REPO    = 'ganddal_github_repo';
 
 let adminData    = null;
 let editingIndex = null;
@@ -442,5 +444,124 @@ function showToast(msg, type = 'success') {
   toast._timer = setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
+/* ─── GitHub-innstillinger ─── */
+function loadGithubSettings() {
+  const token = localStorage.getItem(STORAGE_KEY_TOKEN);
+  const repo  = localStorage.getItem(STORAGE_KEY_REPO) || 'b8yxcmzr9w-sketch/www.ganddal.net';
+  const tokenEl = document.getElementById('githubToken');
+  const repoEl  = document.getElementById('githubRepo');
+  if (tokenEl && token) tokenEl.value = token;
+  if (repoEl)           repoEl.value  = repo;
+}
+
+document.getElementById('githubForm')?.addEventListener('submit', e => {
+  e.preventDefault();
+  const token = document.getElementById('githubToken').value.trim();
+  const repo  = document.getElementById('githubRepo').value.trim();
+  if (!token || !repo) return;
+  localStorage.setItem(STORAGE_KEY_TOKEN, token);
+  localStorage.setItem(STORAGE_KEY_REPO,  repo);
+  showToast('GitHub-innstillinger lagret!', 'success');
+  document.getElementById('githubError').textContent = '';
+});
+
+async function testGitHubToken() {
+  const token = localStorage.getItem(STORAGE_KEY_TOKEN);
+  const repo  = localStorage.getItem(STORAGE_KEY_REPO);
+  const errEl = document.getElementById('githubError');
+  if (!token || !repo) { errEl.textContent = 'Lagre token og repo først.'; return; }
+  errEl.textContent = 'Tester…';
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+      headers: { Authorization: `token ${token}` }
+    });
+    if (res.status === 200) {
+      errEl.style.color = '#059669';
+      errEl.textContent = '✅ Tilkobling OK – klar til å publisere!';
+    } else if (res.status === 401) {
+      errEl.style.color = '';
+      errEl.textContent = '❌ Ugyldig token – sjekk at det er riktig.';
+    } else if (res.status === 404) {
+      errEl.style.color = '';
+      errEl.textContent = '❌ Repo eller fil ikke funnet – sjekk bruker/repo-navnet.';
+    } else {
+      errEl.style.color = '';
+      errEl.textContent = `❌ Feil: HTTP ${res.status}`;
+    }
+  } catch {
+    errEl.style.color = '';
+    errEl.textContent = '❌ Nettverksfeil – prøv igjen.';
+  }
+}
+window.testGitHubToken = testGitHubToken;
+
+/* ─── Publiser til GitHub ─── */
+async function publishToGitHub() {
+  const token = localStorage.getItem(STORAGE_KEY_TOKEN);
+  const repo  = localStorage.getItem(STORAGE_KEY_REPO) || 'b8yxcmzr9w-sketch/www.ganddal.net';
+
+  if (!token) {
+    showToast('Ingen GitHub-token lagret – gå til Innstillinger.', 'error');
+    return;
+  }
+  if (!adminData) {
+    showToast('Ingen data å publisere.', 'error');
+    return;
+  }
+
+  const btns = document.querySelectorAll('#publishBtn, [onclick="publishToGitHub()"]');
+  btns.forEach(b => { b.disabled = true; b.textContent = '⏳ Publiserer…'; });
+
+  const statusEl = document.getElementById('publishStatus');
+  if (statusEl) { statusEl.textContent = ''; statusEl.className = 'publish-status'; }
+
+  try {
+    // 1. Hent gjeldende SHA (nødvendig for å oppdatere eksisterende fil)
+    const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+      headers: { Authorization: `token ${token}` }
+    });
+    if (!getRes.ok) throw new Error(`Kunne ikke hente fil fra GitHub (${getRes.status})`);
+    const { sha } = await getRes.json();
+
+    // 2. Kode innholdet som base64 (håndterer norske tegn)
+    adminData.meta.lastUpdated = new Date().toISOString().slice(0, 10);
+    const json    = JSON.stringify(adminData, null, 2);
+    const encoded = btoa(unescape(encodeURIComponent(json)));
+
+    // 3. Commit via GitHub API
+    const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+      method:  'PUT',
+      headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: `Oppdater portal via admin (${new Date().toLocaleDateString('no-NO')})`,
+        content: encoded,
+        sha
+      })
+    });
+
+    if (!putRes.ok) {
+      const err = await putRes.json();
+      throw new Error(err.message || `HTTP ${putRes.status}`);
+    }
+
+    showToast('✅ Publisert! Siden er live innen ~30 sekunder.', 'success');
+    if (statusEl) {
+      statusEl.textContent = '✅ Publisert ' + new Date().toLocaleTimeString('no-NO');
+      statusEl.className = 'publish-status ok';
+    }
+
+  } catch (err) {
+    console.error(err);
+    showToast('❌ Publisering feilet: ' + err.message, 'error');
+    if (statusEl) {
+      statusEl.textContent = '❌ ' + err.message;
+      statusEl.className = 'publish-status error';
+    }
+  }
+
+  btns.forEach(b => { b.disabled = false; b.textContent = '🚀 Publiser til nettstedet'; });
+}
+window.publishToGitHub = publishToGitHub;
+
 /* ─── Start ─── */
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => { init(); loadGithubSettings(); });

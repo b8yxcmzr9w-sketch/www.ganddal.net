@@ -675,6 +675,19 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .admin-tab-content { display: none; }
 .admin-tab-content.active { display: block; }
 
+/* Publiser-knapp */
+.btn-publish {
+  background: #059669; color: white;
+  border: none; border-radius: 8px;
+  padding: .55rem 1.1rem; font-size: .9rem; font-weight: 600;
+  cursor: pointer; transition: background .15s;
+}
+.btn-publish:hover:not(:disabled) { background: #047857; }
+.btn-publish:disabled { opacity: .6; cursor: not-allowed; }
+.publish-status { margin-top: .75rem; font-size: .85rem; min-height: 1.2em; }
+.publish-status.ok    { color: #059669; }
+.publish-status.error { color: #DC2626; }
+
 /* Sorterbare kolonneoverskrifter */
 th[data-col] { cursor: pointer; user-select: none; white-space: nowrap; }
 th[data-col]:hover { background: rgba(204,17,34,.06); color: var(--red); }

@@ -69,6 +69,7 @@
       <div id="tab-orgs" class="admin-tab-content active">
         <div class="admin-actions">
           <button class="btn-primary" onclick="openAddModal()">+ Legg til ny</button>
+          <button class="btn-publish" id="publishBtn" onclick="publishToGitHub()">🚀 Publiser til nettstedet</button>
           <button class="btn-secondary" id="downloadBtn">⬇ Last ned data.json</button>
         </div>
 
@@ -94,25 +95,52 @@
 
       <!-- Fane: Eksport -->
       <div id="tab-export" class="admin-tab-content">
-        <div style="max-width:600px">
+        <div style="max-width:560px">
           <h2 style="margin-bottom:1rem">Publiser endringer</h2>
-          <div style="background:white;border:1px solid #E2E8F0;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem">
-            <h3 style="font-size:1rem;margin-bottom:.75rem">Slik publiserer du til nettstedet</h3>
-            <ol style="padding-left:1.25rem;line-height:2;color:#4A5568;font-size:.9rem">
-              <li>Klikk «Last ned data.json» under <em>Organisasjoner</em>-fanen</li>
-              <li>Gå til GitHub-repositoriet for portalen</li>
-              <li>Åpne filen <code>data.json</code> og klikk rediger (blyantikon)</li>
-              <li>Erstatt innholdet med den nedlastede filen (kopier/lim inn)</li>
-              <li>Trykk «Commit changes» – siden oppdateres automatisk</li>
-            </ol>
+
+          <div style="background:white;border:1px solid #E2E8F0;border-radius:10px;padding:1.5rem;margin-bottom:1rem">
+            <h3 style="font-size:1rem;margin-bottom:.5rem">🚀 Direkte publisering til GitHub</h3>
+            <p style="font-size:.85rem;color:#718096;margin-bottom:1rem">
+              Krever at GitHub-token er lagret under <em>Innstillinger</em>.
+              Endringene er live på www.ganddal.net innen ca. 30 sekunder.
+            </p>
+            <button class="btn-publish" onclick="publishToGitHub()">🚀 Publiser til nettstedet</button>
+            <p class="publish-status" id="publishStatus"></p>
           </div>
-          <button class="btn-primary" id="downloadBtn2">⬇ Last ned data.json</button>
+
+          <div style="background:white;border:1px solid #E2E8F0;border-radius:10px;padding:1.5rem">
+            <h3 style="font-size:1rem;margin-bottom:.5rem">⬇ Manuell nedlasting (reserve)</h3>
+            <p style="font-size:.85rem;color:#718096;margin-bottom:1rem">Last ned filen og last den opp til GitHub manuelt hvis direkte publisering ikke fungerer.</p>
+            <button class="btn-secondary" id="downloadBtn2">⬇ Last ned data.json</button>
+          </div>
         </div>
       </div>
 
       <!-- Fane: Innstillinger -->
       <div id="tab-settings" class="admin-tab-content">
         <div style="max-width:420px">
+
+          <h2 style="margin-bottom:1rem">GitHub-publisering</h2>
+          <div style="background:white;border:1px solid #E2E8F0;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem">
+            <p style="font-size:.85rem;color:#718096;margin-bottom:1rem">
+              Legg inn et GitHub Personal Access Token med <code>contents: write</code>-tilgang til repoet.
+              Tokenet lagres kun i denne nettleseren.
+            </p>
+            <form id="githubForm">
+              <div class="form-group">
+                <label for="githubToken">Personal Access Token</label>
+                <input type="password" id="githubToken" autocomplete="off" placeholder="ghp_…" required>
+              </div>
+              <div class="form-group">
+                <label for="githubRepo">Repository (bruker/repo)</label>
+                <input type="text" id="githubRepo" placeholder="bruker/repo-navn" required>
+              </div>
+              <p class="error-msg" id="githubError"></p>
+              <button type="submit" class="btn-primary">Lagre</button>
+              <button type="button" class="btn-secondary" style="margin-left:.5rem" onclick="testGitHubToken()">Test tilkobling</button>
+            </form>
+          </div>
+
           <h2 style="margin-bottom:1rem">Endre passord</h2>
           <div style="background:white;border:1px solid #E2E8F0;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem">
             <p style="font-size:.85rem;color:#718096;margin-bottom:1rem">
