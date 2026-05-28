@@ -11,26 +11,58 @@
     "Offentlig og frivillig"
   ],
   "ageGroups": [
-    { "id": "barn",     "label": "Barn (0–12 år)" },
-    { "id": "ungdom",   "label": "Ungdom (13–19 år)" },
-    { "id": "voksne",   "label": "Voksne (20–64 år)" },
-    { "id": "eldre",    "label": "Eldre (65+)" },
-    { "id": "foreldre", "label": "Foreldre" },
-    { "id": "familier", "label": "Familier" }
+    {
+      "id": "barn",
+      "label": "Barn (0–12 år)"
+    },
+    {
+      "id": "ungdom",
+      "label": "Ungdom (13–19 år)"
+    },
+    {
+      "id": "voksne",
+      "label": "Voksne (20–64 år)"
+    },
+    {
+      "id": "eldre",
+      "label": "Eldre (65+)"
+    },
+    {
+      "id": "foreldre",
+      "label": "Foreldre"
+    },
+    {
+      "id": "familier",
+      "label": "Familier"
+    }
   ],
   "organizations": [
     {
       "id": "ganddal-fk",
-      "name": "Ganddal FK",
-      "url": "https://www.ganddal-fk.no",
-      "description": "Fotballklubben på Ganddal med tilbud for jenter og gutter fra 5 år og oppover, samt voksenlag.",
+      "name": "Ganddal IL",
+      "url": "https://www.ganddalil.no",
+      "description": "Ganddal IL er ett idrettslag med over 1500 medlemmer. Vi har 4 grener i idrettslaget. Fotball, håndball, orientering og turn.",
       "category": "Idrett og kultur",
-      "ageGroups": ["barn", "ungdom", "voksne", "familier"],
-      "tags": ["fotball", "sport", "lag", "trening"],
-      "logo": null,
-      "featured": true,
+      "logo": "https://spond.com/storage/upload/48EBC4CEBDC40BDDF7F6EF885F55B909/1744203563_5FBDD523/GIL-Logo-360x360.jpeg",
+      "tags": [
+        "Fotball",
+        "håndball",
+        "orientering",
+        "turn",
+        "sport",
+        "lag",
+        "trening"
+      ],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "familier"
+      ],
       "active": true,
-      "addedDate": "2026-05-28"
+      "featured": true,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
     },
     {
       "id": "sandnes-kommune",
@@ -38,8 +70,22 @@
       "url": "https://www.sandnes.kommune.no",
       "description": "Kommunale tjenester for innbyggere på Ganddal og i Sandnes. Barnehageplass, byggesøknader, renovasjon og mye mer.",
       "category": "Offentlig og frivillig",
-      "ageGroups": ["barn", "ungdom", "voksne", "eldre", "foreldre", "familier"],
-      "tags": ["kommune", "offentlig", "tjenester", "barnehage", "byggesøknad", "renovasjon"],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "foreldre",
+        "familier"
+      ],
+      "tags": [
+        "kommune",
+        "offentlig",
+        "tjenester",
+        "barnehage",
+        "byggesøknad",
+        "renovasjon"
+      ],
       "logo": null,
       "featured": true,
       "active": true,
@@ -51,8 +97,21 @@
       "url": "https://www.kolumbus.no",
       "description": "Buss og båt i Rogaland. Finn ruter, kjøp billett og planlegg reisen din fra Ganddal og i regionen.",
       "category": "Offentlig og frivillig",
-      "ageGroups": ["barn", "ungdom", "voksne", "eldre", "familier"],
-      "tags": ["buss", "transport", "kollektivtrafikk", "rutetabell", "billett", "app"],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
+      "tags": [
+        "buss",
+        "transport",
+        "kollektivtrafikk",
+        "rutetabell",
+        "billett",
+        "app"
+      ],
       "logo": null,
       "featured": true,
       "active": true,
@@ -64,8 +123,21 @@
       "url": "https://sandnes.bibliotek.no",
       "description": "Lån bøker, e-bøker, filmer og musikk gratis. Bibliotekavdeling på Ganddal med utlånsautomat og arrangementer for alle aldre.",
       "category": "Idrett og kultur",
-      "ageGroups": ["barn", "ungdom", "voksne", "eldre", "familier"],
-      "tags": ["bibliotek", "bøker", "lese", "kultur", "e-bøker", "gratis"],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
+      "tags": [
+        "bibliotek",
+        "bøker",
+        "lese",
+        "kultur",
+        "e-bøker",
+        "gratis"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -77,8 +149,18 @@
       "url": "https://ganddal.skole.sandnes.no",
       "description": "Barneskole sentralt på Ganddal. Her finner du informasjon om skolen, SFO, kontaktlærere og arrangementer.",
       "category": "Skole, helse og omsorg",
-      "ageGroups": ["barn", "foreldre", "familier"],
-      "tags": ["skole", "barneskole", "SFO", "undervisning", "1.-7. trinn"],
+      "ageGroups": [
+        "barn",
+        "foreldre",
+        "familier"
+      ],
+      "tags": [
+        "skole",
+        "barneskole",
+        "SFO",
+        "undervisning",
+        "1.-7. trinn"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -90,8 +172,17 @@
       "url": "https://hommersaak.skole.sandnes.no",
       "description": "Barneskole nær Ganddal. Informasjon om skolen, SFO, meny og skolekalender.",
       "category": "Skole, helse og omsorg",
-      "ageGroups": ["barn", "foreldre", "familier"],
-      "tags": ["skole", "barneskole", "SFO", "undervisning"],
+      "ageGroups": [
+        "barn",
+        "foreldre",
+        "familier"
+      ],
+      "tags": [
+        "skole",
+        "barneskole",
+        "SFO",
+        "undervisning"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -103,8 +194,19 @@
       "url": "https://www.nav.no/no/lokal/sandnes",
       "description": "Hjelp til arbeid, trygd, sosiale tjenester og dagpenger. NAV-kontor i Sandnes sentrum betjener innbyggere på Ganddal.",
       "category": "Offentlig og frivillig",
-      "ageGroups": ["ungdom", "voksne", "eldre"],
-      "tags": ["NAV", "arbeid", "trygd", "dagpenger", "sosialhjelp", "jobbsøk"],
+      "ageGroups": [
+        "ungdom",
+        "voksne",
+        "eldre"
+      ],
+      "tags": [
+        "NAV",
+        "arbeid",
+        "trygd",
+        "dagpenger",
+        "sosialhjelp",
+        "jobbsøk"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -116,8 +218,20 @@
       "url": "https://www.sandnes.kommune.no/tjenester/kultur-idrett-og-fritid/kulturskole/",
       "description": "Undervisning i musikk, dans, drama og visuelle kunstfag for barn og unge. Tilbud på flere lokasjoner i kommunen.",
       "category": "Idrett og kultur",
-      "ageGroups": ["barn", "ungdom", "foreldre"],
-      "tags": ["musikk", "dans", "drama", "kulturskole", "kunst", "gitarundervisning", "sang"],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "foreldre"
+      ],
+      "tags": [
+        "musikk",
+        "dans",
+        "drama",
+        "kulturskole",
+        "kunst",
+        "gitarundervisning",
+        "sang"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -129,8 +243,20 @@
       "url": "https://www.sandnes.kommune.no/tjenester/helse-og-omsorg/legevakt/",
       "description": "Øyeblikkelig hjelp utenom fastlegekontorenes åpningstider. Ring 116 117 for legevaktråd.",
       "category": "Skole, helse og omsorg",
-      "ageGroups": ["barn", "ungdom", "voksne", "eldre", "familier"],
-      "tags": ["legevakt", "helse", "lege", "akutt", "116117"],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
+      "tags": [
+        "legevakt",
+        "helse",
+        "lege",
+        "akutt",
+        "116117"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -142,8 +268,18 @@
       "url": "https://www.sandnes.kommune.no/tjenester/helse-og-omsorg/helsestasjon/",
       "description": "Helsetilbud for gravide, småbarnsforeldre og barn 0–5 år. Vaksinasjonsprogram og skolehelsetjeneste.",
       "category": "Skole, helse og omsorg",
-      "ageGroups": ["barn", "foreldre", "familier"],
-      "tags": ["helsestasjon", "barn", "gravid", "vaksinasjon", "helsesykepleier"],
+      "ageGroups": [
+        "barn",
+        "foreldre",
+        "familier"
+      ],
+      "tags": [
+        "helsestasjon",
+        "barn",
+        "gravid",
+        "vaksinasjon",
+        "helsesykepleier"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -155,8 +291,20 @@
       "url": "https://www.rodekors.no/lokalforeninger/sandnes/",
       "description": "Frivillig hjelpeorganisasjon med besøkstjeneste, nødhjelp og kurs. Alle kan bidra eller motta hjelp.",
       "category": "Offentlig og frivillig",
-      "ageGroups": ["ungdom", "voksne", "eldre", "familier"],
-      "tags": ["frivillig", "Røde Kors", "hjelp", "besøkstjeneste", "kurs", "nødhjelp"],
+      "ageGroups": [
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
+      "tags": [
+        "frivillig",
+        "Røde Kors",
+        "hjelp",
+        "besøkstjeneste",
+        "kurs",
+        "nødhjelp"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -168,8 +316,18 @@
       "url": "https://www.sandnes.kommune.no/frivillighetssentralen",
       "description": "Møteplass og ressurssenter for frivillige og lag i Sandnes. Finn dugnadsmuligheter og aktiviteter nær deg.",
       "category": "Offentlig og frivillig",
-      "ageGroups": ["ungdom", "voksne", "eldre"],
-      "tags": ["frivillig", "dugnad", "lag", "foreninger", "fellesskap"],
+      "ageGroups": [
+        "ungdom",
+        "voksne",
+        "eldre"
+      ],
+      "tags": [
+        "frivillig",
+        "dugnad",
+        "lag",
+        "foreninger",
+        "fellesskap"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -181,8 +339,16 @@
       "url": "https://unginfo.no/sandnes",
       "description": "Informasjon, kurs og aktiviteter for ungdom i Sandnes. Rådgivning om jobb, økonomi, helse og fritid.",
       "category": "Offentlig og frivillig",
-      "ageGroups": ["ungdom"],
-      "tags": ["ungdom", "informasjon", "rådgivning", "aktivitet", "jobb"],
+      "ageGroups": [
+        "ungdom"
+      ],
+      "tags": [
+        "ungdom",
+        "informasjon",
+        "rådgivning",
+        "aktivitet",
+        "jobb"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -194,8 +360,20 @@
       "url": "https://www.sandnes-fotball.no",
       "description": "Toppfotball i Sandnes. Hjemmekamper på Sandnes Idrettspark – ta med hele familien på kamp!",
       "category": "Idrett og kultur",
-      "ageGroups": ["barn", "ungdom", "voksne", "eldre", "familier"],
-      "tags": ["fotball", "toppfotball", "Sandnes Ulf", "kamper", "sport"],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
+      "tags": [
+        "fotball",
+        "toppfotball",
+        "Sandnes Ulf",
+        "kamper",
+        "sport"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -207,8 +385,16 @@
       "url": "https://www.sandnes.kommune.no/tjenester/utdanning-og-skole/voksenopplaering/",
       "description": "Norskopplæring, grunnskoleopplæring for voksne og introduksjonsprogram for nyankomne innvandrere.",
       "category": "Skole, helse og omsorg",
-      "ageGroups": ["voksne"],
-      "tags": ["norsk", "voksenopplæring", "innvandrer", "språk", "introduksjonsprogram"],
+      "ageGroups": [
+        "voksne"
+      ],
+      "tags": [
+        "norsk",
+        "voksenopplæring",
+        "innvandrer",
+        "språk",
+        "introduksjonsprogram"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -220,8 +406,21 @@
       "url": "https://sandneskirken.no",
       "description": "Kirke og menighet i Sandnesregionen. Gudstjenester, konfirmasjon, dåp, begravelse og menighetsliv.",
       "category": "Idrett og kultur",
-      "ageGroups": ["barn", "ungdom", "voksne", "eldre", "familier"],
-      "tags": ["kirke", "menighet", "konfirmasjon", "dåp", "gudstjeneste", "tro"],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
+      "tags": [
+        "kirke",
+        "menighet",
+        "konfirmasjon",
+        "dåp",
+        "gudstjeneste",
+        "tro"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -233,8 +432,20 @@
       "url": "https://www.helsenorge.no",
       "description": "Bytt fastlege, sjekk timeavtaler, bestill e-resept og finn helsetjenester i nærheten via helsenorge.no.",
       "category": "Skole, helse og omsorg",
-      "ageGroups": ["barn", "ungdom", "voksne", "eldre", "familier"],
-      "tags": ["fastlege", "helse", "resept", "time", "helsetjenester"],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
+      "tags": [
+        "fastlege",
+        "helse",
+        "resept",
+        "time",
+        "helsetjenester"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -246,8 +457,17 @@
       "url": "https://www.1881.no",
       "description": "Søk opp naboer, bedrifter og tjenester på Ganddal og i Sandnes. Telefonkatalog og kart.",
       "category": "Handel og service",
-      "ageGroups": ["voksne", "eldre"],
-      "tags": ["telefonkatalog", "søk", "bedrifter", "kart", "adresse"],
+      "ageGroups": [
+        "voksne",
+        "eldre"
+      ],
+      "tags": [
+        "telefonkatalog",
+        "søk",
+        "bedrifter",
+        "kart",
+        "adresse"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -259,8 +479,18 @@
       "url": "https://www.skatteetaten.no",
       "description": "Skattemelding, folkeregister, adresseregistrering og skattekort. Meld adresseendring her.",
       "category": "Offentlig og frivillig",
-      "ageGroups": ["ungdom", "voksne", "eldre"],
-      "tags": ["skatt", "skattemelding", "folkeregister", "adresse", "skattekort"],
+      "ageGroups": [
+        "ungdom",
+        "voksne",
+        "eldre"
+      ],
+      "tags": [
+        "skatt",
+        "skattemelding",
+        "folkeregister",
+        "adresse",
+        "skattekort"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -272,8 +502,20 @@
       "url": "https://www.sandnes.kommune.no/tjenester/kultur-idrett-og-fritid/",
       "description": "Kommunale aktivitetstilbud, idrettsanlegg, parker og friluftsliv i Sandnes-området.",
       "category": "Idrett og kultur",
-      "ageGroups": ["barn", "ungdom", "voksne", "eldre", "familier"],
-      "tags": ["friluftsliv", "park", "aktivitet", "idrettsanlegg", "natur"],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
+      "tags": [
+        "friluftsliv",
+        "park",
+        "aktivitet",
+        "idrettsanlegg",
+        "natur"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -285,8 +527,16 @@
       "url": "https://www.rema.no",
       "description": "Dagligvarebutikk sentralt på Ganddal.",
       "category": "Handel og service",
-      "ageGroups": ["voksne", "familier"],
-      "tags": ["dagligvare", "mat", "butikk", "rema"],
+      "ageGroups": [
+        "voksne",
+        "familier"
+      ],
+      "tags": [
+        "dagligvare",
+        "mat",
+        "butikk",
+        "rema"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -298,8 +548,16 @@
       "url": "https://www.rema.no",
       "description": "Dagligvarebutikk på Skjæveland.",
       "category": "Handel og service",
-      "ageGroups": ["voksne", "familier"],
-      "tags": ["dagligvare", "mat", "butikk", "rema"],
+      "ageGroups": [
+        "voksne",
+        "familier"
+      ],
+      "tags": [
+        "dagligvare",
+        "mat",
+        "butikk",
+        "rema"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -311,8 +569,16 @@
       "url": "https://www.kiwi.no",
       "description": "Dagligvarebutikk på Lundehaugen.",
       "category": "Handel og service",
-      "ageGroups": ["voksne", "familier"],
-      "tags": ["dagligvare", "mat", "butikk", "kiwi"],
+      "ageGroups": [
+        "voksne",
+        "familier"
+      ],
+      "tags": [
+        "dagligvare",
+        "mat",
+        "butikk",
+        "kiwi"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -324,8 +590,16 @@
       "url": "https://www.joker.no",
       "description": "Nærbutikk på Sandved.",
       "category": "Handel og service",
-      "ageGroups": ["voksne", "familier"],
-      "tags": ["dagligvare", "mat", "nærbutikk", "joker"],
+      "ageGroups": [
+        "voksne",
+        "familier"
+      ],
+      "tags": [
+        "dagligvare",
+        "mat",
+        "nærbutikk",
+        "joker"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -337,8 +611,16 @@
       "url": "https://www.rema.no",
       "description": "Dagligvarebutikk på Hove.",
       "category": "Handel og service",
-      "ageGroups": ["voksne", "familier"],
-      "tags": ["dagligvare", "mat", "butikk", "rema"],
+      "ageGroups": [
+        "voksne",
+        "familier"
+      ],
+      "tags": [
+        "dagligvare",
+        "mat",
+        "butikk",
+        "rema"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
@@ -350,8 +632,16 @@
       "url": "https://www.bryggebakeren.no",
       "description": "Bakeri og kafé på Hove med ferskt brød, rundstykker og kaker.",
       "category": "Handel og service",
-      "ageGroups": ["voksne", "familier"],
-      "tags": ["bakeri", "kafé", "brød", "kaffe"],
+      "ageGroups": [
+        "voksne",
+        "familier"
+      ],
+      "tags": [
+        "bakeri",
+        "kafé",
+        "brød",
+        "kaffe"
+      ],
       "logo": null,
       "featured": false,
       "active": true,
