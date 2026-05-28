@@ -17,6 +17,9 @@ function show(id) {
   document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
   const el = document.getElementById(id);
   if (el) el.classList.add('active');
+  // Logg ut-knapp vises kun når panelet er aktivt
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) logoutBtn.style.display = id === 'panel' ? '' : 'none';
 }
 
 /* ─── Init ─── */
