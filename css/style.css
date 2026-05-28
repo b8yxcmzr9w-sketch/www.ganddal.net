@@ -803,6 +803,29 @@ th[data-col].sort-desc::after { content: ' ↓'; opacity: 1; color: var(--red); 
 }
 tr.needs-review > td:first-child { border-left: 3px solid #F59E0B; }
 
+/* Lenkesjekk-merker */
+.check-badge {
+  display: inline-block;
+  font-size: .7rem;
+  font-weight: 700;
+  padding: .1rem .35rem;
+  border-radius: 4px;
+  margin-left: .3rem;
+  vertical-align: middle;
+  cursor: default;
+}
+.check-error {
+  background: #FEE2E2;
+  color: #B91C1C;
+  border: 1px solid #FECACA;
+}
+.check-stale {
+  background: #F3F4F6;
+  color: #6B7280;
+  border: 1px solid #E5E7EB;
+}
+tr.link-broken > td:first-child { border-left: 3px solid #DC2626; }
+
 /* Admin tabell */
 .org-table {
   width: 100%;
