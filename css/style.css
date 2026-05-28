@@ -642,6 +642,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-weight: 700;
   font-size: .98rem;
   color: rgba(255,255,255,.85);
+  text-decoration: none;
 }
 .footer-logo-wrap { width: 30px; height: 30px; flex-shrink: 0; }
 .footer-logo-wrap img {
