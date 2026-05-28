@@ -197,55 +197,6 @@ function populateAgeGroups() {
   ).join('');
 }
 
-/* ─── Lenkesjekk ─── */
-function needsLinkCheck(org) {
-  if (!org.lastChecked) return true;
-  const d = new Date(org.lastChecked);
-  if (isNaN(d)) return true;
-  return (Date.now() - d) > 90 * 86400000;
-}
-
-async function checkUrl(url) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 10000);
-  try {
-    await fetch(url, { mode: 'no-cors', signal: controller.signal });
-    clearTimeout(timer);
-    return 'ok';
-  } catch (err) {
-    clearTimeout(timer);
-    return err.name === 'AbortError' ? 'timeout' : 'error';
-  }
-}
-
-async function checkAllLinks() {
-  if (!adminData?.organizations?.length) return;
-  const btn = document.getElementById('checkLinksBtn');
-  const origLabel = btn?.textContent ?? '🔍 Sjekk lenker';
-  if (btn) btn.disabled = true;
-
-  const orgs = adminData.organizations;
-  let broken = 0;
-
-  for (let i = 0; i < orgs.length; i++) {
-    if (btn) btn.textContent = `Sjekker ${i + 1} / ${orgs.length}…`;
-    const status = await checkUrl(orgs[i].url);
-    orgs[i].lastChecked  = new Date().toISOString().slice(0, 10);
-    orgs[i].checkStatus  = status;
-    if (status !== 'ok') broken++;
-    renderTable(); // oppdater fortløpende
-  }
-
-  adminData.meta.lastUpdated = new Date().toISOString().slice(0, 10);
-  setDirty(true);
-
-  if (btn) { btn.disabled = false; btn.textContent = origLabel; }
-  broken === 0
-    ? showToast(`✅ Alle ${orgs.length} lenker svarer`, 'success')
-    : showToast(`⚠️ ${broken} lenke${broken !== 1 ? 'r' : ''} svarte ikke – sjekk tabellen`, 'error');
-}
-window.checkAllLinks = checkAllLinks;
-
 /* ─── Gjennomgangskontroll (90 dager) ─── */
 function needsReview(org) {
   const dateStr = org.updatedDate || org.addedDate;
@@ -268,15 +219,9 @@ function updateReviewSummary() {
   const el = document.getElementById('reviewSummary');
   if (!el) return;
   const orgs = adminData?.organizations ?? [];
-  const brokenCount = orgs.filter(o => o.checkStatus === 'error' || o.checkStatus === 'timeout').length;
-  const reviewCount  = orgs.filter(needsReview).length;
-  const parts = [];
-  if (brokenCount > 0)
-    parts.push(`<span style="color:#B91C1C">🔴 ${brokenCount} lenke${brokenCount !== 1 ? 'r' : ''} svarte ikke ved siste sjekk</span>`);
-  if (reviewCount > 0)
-    parts.push(`⚠️ ${reviewCount} post${reviewCount !== 1 ? 'er' : ''} ikke gjennomgått på 90+ dager`);
-  if (parts.length) {
-    el.innerHTML = parts.join(' &nbsp;·&nbsp; ');
+  const reviewCount = orgs.filter(needsReview).length;
+  if (reviewCount > 0) {
+    el.textContent = `⚠️  ${reviewCount} post${reviewCount !== 1 ? 'er' : ''} har ikke vært gjennomgått på 90+ dager`;
     el.style.display = '';
   } else {
     el.style.display = 'none';
@@ -358,23 +303,15 @@ function renderTable() {
     const days = daysVisible(org);
     const daysLabel = days === 0 ? 'I dag' : days === 1 ? '1 dag' : `${days} dager`;
     const review  = needsReview(org);
-    const broken  = org.checkStatus === 'error' || org.checkStatus === 'timeout';
-    const stale   = !broken && needsLinkCheck(org) && org.lastChecked; // sjekket før, men 90+ dager siden
-    const linkBadge = broken
-      ? `<span class="check-badge check-error" title="Svarte ikke ved siste sjekk (${org.lastChecked ?? '?'})">✗ feil</span>`
-      : stale
-        ? `<span class="check-badge check-stale" title="Ikke sjekket på 90+ dager">? sjekk</span>`
-        : '';
     const rowClass = [
       org.active === false ? 'inactive-row' : '',
-      review  ? 'needs-review' : '',
-      broken  ? 'link-broken'  : ''
+      review ? 'needs-review' : ''
     ].filter(Boolean).join(' ');
     return `
     <tr class="${rowClass}">
       <td><strong>${esc(org.name)}</strong>${review ? `<span class="review-badge" title="Ikke gjennomgått på 90+ dager">⚠</span>` : ''}</td>
       <td>${esc(org.category)}</td>
-      <td><a href="${esc(org.url)}" target="_blank" rel="noopener">${getDomain(org.url)}</a>${linkBadge}</td>
+      <td><a href="${esc(org.url)}" target="_blank" rel="noopener">${getDomain(org.url)}</a></td>
       <td><span class="status-dot ${org.active !== false ? 'active' : 'inactive'}"></span> ${org.active !== false ? 'Aktiv' : 'Skjult'}</td>
       <td>${org.featured ? '⭐' : '–'}</td>
       <td style="white-space:nowrap;color:#6B7280;font-size:.85rem">${daysLabel}</td>
