@@ -17,7 +17,7 @@ let portalData = null;
 /* ─── Init ─── */
 async function init(ageFilter) {
   try {
-    const res = await fetch('data.json');
+    const res = await fetch('data.json?_=' + Date.now());
     portalData = await res.json();
     allOrgs = portalData.organizations.filter(o => o.active !== false);
     filteredOrgs = allOrgs;
