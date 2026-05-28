@@ -197,6 +197,36 @@ function populateAgeGroups() {
   ).join('');
 }
 
+/* ─── Gjennomgangskontroll (90 dager) ─── */
+function needsReview(org) {
+  const dateStr = org.updatedDate || org.addedDate;
+  if (!dateStr) return false;
+  const d = new Date(dateStr);
+  if (isNaN(d)) return false;
+  return (Date.now() - d) > 90 * 86400000;
+}
+
+function markReviewed(index) {
+  adminData.organizations[index].updatedDate = new Date().toISOString().slice(0, 10);
+  adminData.meta.lastUpdated = new Date().toISOString().slice(0, 10);
+  setDirty(true);
+  renderTable();
+  showToast('Merket som gjennomgått', 'success');
+}
+window.markReviewed = markReviewed;
+
+function updateReviewSummary() {
+  const el = document.getElementById('reviewSummary');
+  if (!el) return;
+  const count = (adminData?.organizations ?? []).filter(needsReview).length;
+  if (count > 0) {
+    el.textContent = `⚠️  ${count} post${count !== 1 ? 'er' : ''} har ikke vært gjennomgått på 90+ dager`;
+    el.style.display = '';
+  } else {
+    el.style.display = 'none';
+  }
+}
+
 /* ─── Sorteringshjelpere ─── */
 function daysVisible(org) {
   const d = org.addedDate ? new Date(org.addedDate) : null;
@@ -262,6 +292,7 @@ function renderTable() {
   if (!tbody || !adminData?.organizations) return;
   if (adminData.organizations.length === 0) {
     tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#9CA3AF;padding:2rem">Ingen organisasjoner lagt til ennå</td></tr>';
+    updateReviewSummary();
     return;
   }
   // Finn reell indeks (sortering endrer rekkefølge, men vi redigerer på original-indeks)
@@ -270,21 +301,24 @@ function renderTable() {
     const i = adminData.organizations.indexOf(org);
     const days = daysVisible(org);
     const daysLabel = days === 0 ? 'I dag' : days === 1 ? '1 dag' : `${days} dager`;
+    const review = needsReview(org);
     return `
-    <tr class="${org.active === false ? 'inactive-row' : ''}">
-      <td><strong>${esc(org.name)}</strong></td>
+    <tr class="${org.active === false ? 'inactive-row' : ''}${review ? ' needs-review' : ''}">
+      <td><strong>${esc(org.name)}</strong>${review ? `<span class="review-badge" title="Ikke gjennomgått på 90+ dager">⚠</span>` : ''}</td>
       <td>${esc(org.category)}</td>
       <td><a href="${esc(org.url)}" target="_blank" rel="noopener">${getDomain(org.url)}</a></td>
       <td><span class="status-dot ${org.active !== false ? 'active' : 'inactive'}"></span> ${org.active !== false ? 'Aktiv' : 'Skjult'}</td>
       <td>${org.featured ? '⭐' : '–'}</td>
       <td style="white-space:nowrap;color:#6B7280;font-size:.85rem">${daysLabel}</td>
-      <td style="display:flex;gap:.4rem;align-items:center">
+      <td style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap">
         <button class="btn-sm btn-edit" onclick="openEditModal(${i})">Rediger</button>
+        ${review ? `<button class="btn-sm btn-review" onclick="markReviewed(${i})" title="Bekreft at innholdet er kontrollert – nullstiller 90-dagersklokken">✓ OK</button>` : ''}
         <button class="btn-sm btn-delete" onclick="deleteOrg(${i})">Slett</button>
       </td>
     </tr>`;
   }).join('');
   updateSortHeaders();
+  updateReviewSummary();
 }
 
 /* ─── Tabvelger ─── */

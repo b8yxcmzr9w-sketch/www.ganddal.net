@@ -776,6 +776,32 @@ th[data-col].sort-desc::after { content: ' ↓'; opacity: 1; color: var(--red); 
   border: 1px solid #FED7D7;
 }
 .btn-delete:hover { background: #FED7D7; }
+.btn-review {
+  background: #FFFBEB;
+  color: #92400E;
+  border: 1px solid #F59E0B;
+}
+.btn-review:hover { background: #FDE68A; }
+
+/* Gjennomgangsvarsel */
+.review-summary {
+  background: #FFFBEB;
+  border: 1px solid #F59E0B;
+  border-radius: 8px;
+  padding: .6rem 1rem;
+  font-size: .85rem;
+  color: #92400E;
+  margin-bottom: 1rem;
+}
+.review-badge {
+  display: inline-block;
+  font-size: .8rem;
+  color: #D97706;
+  margin-left: .3rem;
+  vertical-align: middle;
+  cursor: default;
+}
+tr.needs-review > td:first-child { border-left: 3px solid #F59E0B; }
 
 /* Admin tabell */
 .org-table {
