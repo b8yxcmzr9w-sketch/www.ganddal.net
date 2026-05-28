@@ -2,7 +2,8 @@
   "meta": {
     "lastUpdated": "2026-05-28",
     "version": "1.0",
-    "description": "Ganddal portal – organisasjoner og tjenester"
+    "description": "Ganddal portal – organisasjoner og tjenester",
+    "publishedAt": "2026-05-28T22:06:31.668Z"
   },
   "categories": [
     "Idrett og kultur",
@@ -577,6 +578,53 @@
         "voksne",
         "eldre",
         "foreldre",
+        "familier"
+      ],
+      "active": true,
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
+    },
+    {
+      "id": "bymenigheten-sandnes",
+      "name": "ByMenigheten - Sandnes",
+      "url": "https://www.bymenigheten-sandnes.no/",
+      "description": "ByMenigheten i Sandnes. En menighet for hele byen!\nDu er hjertelig velkommen til å være med oss i ByMenigheten!\nVi samles i små fellesskap i hjemmene rundt omkring i hele byen, og i det store fellesskapet - gudstjenesten - som vi har i Ganddal bydelshus.\nVi ønsker at både barn og voksne skal trives godt, og at barn og unge skal ha det gøy, få venner, bli sett, og bli bedre kjent med Jesus.\nDu kan bli med uansett hvor du bor i byen!\nVår visjon er \"at nye mennesker skal komme til tro på Jesus og bli ført inn i et del­tagende felles­skap der alle vokser i tro og kjær­lighet\".",
+      "category": "Idrett og kultur",
+      "logo": "https://www.bymenigheten-sandnes.no/main/images/bms_logo.ico",
+      "tags": [
+        "Kirke",
+        "menighet",
+        "barnedåp",
+        "konfirmasjon",
+        "samtale"
+      ],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "foreldre",
+        "familier"
+      ],
+      "active": true,
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
+    },
+    {
+      "id": "ebeneser-misjonsforsamling",
+      "name": "Ebeneser Misjonsforsamling",
+      "url": "https://www.ebeneser.no",
+      "description": "Det beste budskap!",
+      "category": "Idrett og kultur",
+      "logo": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.ebeneser.no/&size=128",
+      "tags": [],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
         "familier"
       ],
       "active": true,
