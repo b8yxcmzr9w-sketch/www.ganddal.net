@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Ganddal Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin-body">
+
+  <!-- ===== TOPPLINJE ===== -->
+  <header class="admin-header">
+    <h1>⚙️ Ganddal Portal – Admin</h1>
+    <a href="index.html">← Tilbake til portalen</a>
+    <button id="logoutBtn" style="margin-left:auto;background:rgba(255,255,255,.15);color:white;padding:.4rem .9rem;border-radius:6px;font-size:.85rem;border:1px solid rgba(255,255,255,.3)">Logg ut</button>
+  </header>
+
+  <!-- ===== OPPSETT (første gang) ===== -->
+  <div id="setup" class="admin-section">
+    <div class="auth-box">
+      <h2>Opprett admin-passord</h2>
+      <p>Sett et passord for admin-panelet. Passordet lagres kryptert (SHA-256) i nettleseren din.</p>
+      <form id="setupForm">
+        <div class="form-group">
+          <label for="setupPw">Nytt passord</label>
+          <input type="password" id="setupPw" autocomplete="new-password" placeholder="Minst 6 tegn" required>
+        </div>
+        <div class="form-group">
+          <label for="setupPw2">Gjenta passord</label>
+          <input type="password" id="setupPw2" autocomplete="new-password" required>
+        </div>
+        <p class="error-msg" id="setupError"></p>
+        <button type="submit" class="btn-primary" style="width:100%">Opprett passord</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== INNLOGGING ===== -->
+  <div id="login" class="admin-section">
+    <div class="auth-box">
+      <h2>Admin-innlogging</h2>
+      <p>Skriv inn passordet for å få tilgang til admin-panelet.</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginPw">Passord</label>
+          <input type="password" id="loginPw" autocomplete="current-password" placeholder="Ditt admin-passord" required>
+        </div>
+        <p class="error-msg" id="loginError"></p>
+        <button type="submit" class="btn-primary" style="width:100%">Logg inn</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== ADMIN-PANEL ===== -->
+  <div id="panel" class="admin-section">
+    <div class="admin-main">
+
+      <!-- Faner -->
+      <div class="admin-tabs" role="tablist">
+        <button class="admin-tab active" data-tab="orgs" role="tab">Organisasjoner</button>
+        <button class="admin-tab" data-tab="export" role="tab">Eksport / Publisering</button>
+        <button class="admin-tab" data-tab="settings" role="tab">Innstillinger</button>
+      </div>
+
+      <!-- Fane: Organisasjoner -->
+      <div id="tab-orgs" class="admin-tab-content active">
+        <div class="admin-actions">
+          <button class="btn-primary" onclick="openAddModal()">+ Legg til ny</button>
+          <button class="btn-secondary" id="downloadBtn">⬇ Last ned data.json</button>
+        </div>
+
+        <div style="overflow-x:auto">
+          <table class="org-table">
+            <thead>
+              <tr>
+                <th>Navn</th>
+                <th>Kategori</th>
+                <th>Nettsted</th>
+                <th>Status</th>
+                <th>Fremhevet</th>
+                <th>Handlinger</th>
+              </tr>
+            </thead>
+            <tbody id="orgTableBody">
+              <tr><td colspan="6" style="text-align:center;color:#9CA3AF;padding:2rem">Laster…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Fane: Eksport -->
+      <div id="tab-export" class="admin-tab-content">
+        <div style="max-width:600px">
+          <h2 style="margin-bottom:1rem">Publiser endringer</h2>
+          <div style="background:white;border:1px solid #E2E8F0;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem">
+            <h3 style="font-size:1rem;margin-bottom:.75rem">Slik publiserer du til nettstedet</h3>
+            <ol style="padding-left:1.25rem;line-height:2;color:#4A5568;font-size:.9rem">
+              <li>Klikk «Last ned data.json» under <em>Organisasjoner</em>-fanen</li>
+              <li>Gå til GitHub-repositoriet for portalen</li>
+              <li>Åpne filen <code>data.json</code> og klikk rediger (blyantikon)</li>
+              <li>Erstatt innholdet med den nedlastede filen (kopier/lim inn)</li>
+              <li>Trykk «Commit changes» – siden oppdateres automatisk</li>
+            </ol>
+          </div>
+          <button class="btn-primary" id="downloadBtn2">⬇ Last ned data.json</button>
+        </div>
+      </div>
+
+      <!-- Fane: Innstillinger -->
+      <div id="tab-settings" class="admin-tab-content">
+        <div style="max-width:420px">
+          <h2 style="margin-bottom:1rem">Endre passord</h2>
+          <div style="background:white;border:1px solid #E2E8F0;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem">
+            <p style="font-size:.85rem;color:#718096;margin-bottom:1rem">
+              Passordet lagres som en SHA-256-hash i nettleserens localStorage – kun på denne enheten.
+              Merk: dette er ikke et sikkert autentiseringssystem, men holder tilfeldige besøkende borte.
+            </p>
+            <form id="changePwForm">
+              <div class="form-group">
+                <label for="newPw">Nytt passord</label>
+                <input type="password" id="newPw" autocomplete="new-password" placeholder="Minst 6 tegn" required>
+              </div>
+              <div class="form-group">
+                <label for="newPw2">Gjenta passord</label>
+                <input type="password" id="newPw2" autocomplete="new-password" required>
+              </div>
+              <p class="error-msg" id="changePwError"></p>
+              <button type="submit" class="btn-primary">Endre passord</button>
+            </form>
+          </div>
+          <div style="background:white;border:1px solid #E2E8F0;border-radius:10px;padding:1.5rem">
+            <h3 style="font-size:1rem;margin-bottom:.5rem">Tilbakestill passord</h3>
+            <p style="font-size:.85rem;color:#718096;margin-bottom:1rem">Slett lagret passord og sett opp nytt. Krever oppdatering av siden.</p>
+            <button class="btn-danger" onclick="if(confirm('Slett passord og logg ut?')){localStorage.removeItem('ganddal_admin_hash');sessionStorage.removeItem('ganddal_admin_sess');location.reload()}">Tilbakestill passord</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== MODAL: Legg til / Rediger ===== -->
+  <div class="modal-overlay" id="orgModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Legg til ny</h2>
+        <button class="modal-close" id="modalClose" aria-label="Lukk">✕</button>
+      </div>
+
+      <form id="orgForm">
+        <div class="form-group">
+          <label for="orgUrl">Nettadresse *</label>
+          <input type="url" id="orgUrl" placeholder="https://eksempel.no" required>
+          <button type="button" id="fetchMetaBtn" class="btn-secondary" style="margin-top:.5rem;width:100%">🔍 Hent info fra URL automatisk</button>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="orgName">Navn *</label>
+            <input type="text" id="orgName" placeholder="Organisasjonens navn" required>
+          </div>
+          <div class="form-group">
+            <label for="orgCategory">Kategori *</label>
+            <select id="orgCategory" required>
+              <!-- fylles inn av JS -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="orgDescription">Beskrivelse *</label>
+          <textarea id="orgDescription" placeholder="Kort og informativ beskrivelse av nettstedet/tjenesten…" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="orgLogo">Logo-URL (valgfri)</label>
+          <input type="url" id="orgLogo" placeholder="https://eksempel.no/logo.png">
+          <span class="helper">Legg inn URL til logo/bilde. Lar du stå tom brukes favicon automatisk.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="orgTags">Emneord (kommaseparert, valgfri)</label>
+          <input type="text" id="orgTags" placeholder="fotball, sport, barn, trening">
+        </div>
+
+        <div class="form-group">
+          <label>Aldersgrupper</label>
+          <div class="checkbox-group" id="orgAgeGroups">
+            <!-- fylles inn av JS -->
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="checkbox-label" style="border:none;padding:0">
+              <input type="checkbox" id="orgActive" checked>
+              Aktiv (vises på portalen)
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="checkbox-label" style="border:none;padding:0">
+              <input type="checkbox" id="orgFeatured">
+              ⭐ Fremhev øverst
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="modalCancel">Avbryt</button>
+          <button type="submit" class="btn-primary">Lagre</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/admin.js"></script>
+  <script>
+    // Koble nedlastknappen i Eksport-fanen til samme funksjon
+    document.getElementById('downloadBtn2')?.addEventListener('click', () => {
+      document.getElementById('downloadBtn')?.click();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tilbud for eldre på Ganddal – helse, transport, frivillighet, bibliotek og kommunale tjenester.">
+  <title>For eldre – Ganddal Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-age-filter="eldre">
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="#CC1122"/>
+          <text x="20" y="26" text-anchor="middle" fill="white" font-size="18" font-family="Inter,sans-serif" font-weight="800">G</text>
+        </svg>
+        <span class="nav-brand-text">ganddal<span>.net</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="ny-pa-ganddal.html">Ny på Ganddal</a>
+        <a href="for-barn.html">For barn</a>
+        <a href="for-ungdom.html">For ungdom</a>
+        <a href="for-voksne.html">For voksne</a>
+        <a href="for-foreldre.html">For foreldre</a>
+        <a href="for-eldre.html" class="active">For eldre</a>
+      </nav>
+      <button class="nav-menu-btn" id="menuBtn" aria-label="Åpne meny">☰</button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-panel">
+      <button class="mobile-menu-close" id="menuClose">✕</button>
+      <a href="index.html">Hjem</a>
+      <a href="ny-pa-ganddal.html">Ny på Ganddal</a>
+      <a href="for-barn.html">For barn</a>
+      <a href="for-ungdom.html">For ungdom</a>
+      <a href="for-voksne.html">For voksne</a>
+      <a href="for-foreldre.html">For foreldre</a>
+      <a href="for-eldre.html">For eldre</a>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-content">
+      <h1>For eldre på Ganddal 🌿</h1>
+      <p>Finn helsetilbud, transport, aktiviteter og støttetjenester for deg som er 65 år eller eldre.</p>
+    </div>
+  </header>
+
+  <main class="subpage-content">
+
+    <div class="emergency-box" style="margin-bottom:2rem">
+      <h3>📞 Viktige telefonnummer</h3>
+      <div class="emergency-numbers">
+        <div class="emergency-number"><strong>113</strong><span>Ambulanse</span></div>
+        <div class="emergency-number"><strong>116 117</strong><span>Legevakt</span></div>
+        <div class="emergency-number"><strong>51 33 10 00</strong><span>Sandnes kommune</span></div>
+        <div class="emergency-number"><strong>800 30 196</strong><span>Alarmtelefon (Røde Kors)</span></div>
+      </div>
+    </div>
+
+    <div class="info-cards" style="margin-bottom:2rem">
+      <div class="info-card">
+        <div class="info-card-icon">🏥</div>
+        <div><h3>Helse og omsorg</h3><p>Fastlege, hjemmesykepleie og eldreomsorgtjenester via Sandnes kommune. Helsenorge.no for timeavtaler.</p></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">🚌</div>
+        <div><h3>Transport</h3><span style="background:#FEF3C7;color:#92400E;font-size:.75rem;padding:.15rem .5rem;border-radius:20px;font-weight:600">Husk honnørrabatt!</span>
+        <p style="margin-top:.35rem">Kolumbus gir rabatt til deg over 67 år. Bestill TT-transport via kommunen ved behov.</p></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">📚</div>
+        <div><h3>Bibliotek</h3><p>Sandnes bibliotek har e-bøker, lydbøker og leseklubb. Gratis og tilgjengelig på nett og lokalt.</p></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">🤝</div>
+        <div><h3>Besøkstjeneste</h3><p>Røde Kors og Frivillighetsentralen tilbyr selskap og hjelp for deg som ønsker det.</p></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">⛪</div>
+        <div><h3>Menighet og fellesskap</h3><p>Sandnes kirke og lokale menigheter har aktiviteter og fellesskap for eldre i nærmiljøet.</p></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">💰</div>
+        <div><h3>Trygd og ytelser</h3><p>NAV Sandnes hjelper deg med alderspensjon, uføretrygd og andre rettigheter du har krav på.</p></div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Nyttige nettsider for eldre (65+)</h2>
+    <div class="cards-grid" id="cardsGrid" aria-live="polite"></div>
+    <div class="empty-state" id="emptyState" style="display:none"><h3>Ingen treff</h3></div>
+    <p style="margin-top:1.5rem;font-size:.9rem;color:#718096">
+      <a href="index.html" style="color:#CC1122">← Se alle tilbud på portalen</a>
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-wrap"><img src="sblogo.png" alt="uno"></div>
+        <span>uno · ganddal.net</span>
+      </div>
+      <nav class="footer-links" aria-label="Bunnavigasjon">
+        <a href="index.html">Hjem</a>
+        <a href="ny-pa-ganddal.html">Ny på Ganddal</a>
+        <a href="for-barn.html">For barn</a>
+        <a href="for-ungdom.html">For ungdom</a>
+        <a href="for-voksne.html">For voksne</a>
+        <a href="for-foreldre.html">For foreldre</a>
+        <a href="for-eldre.html">For eldre</a>
+        <a href="admin.html">Admin</a>
+      </nav>
+      <p class="footer-copy">© uno · ganddal.net – En uoffisiell portal for innbyggere på Ganddal</p>
+    </div>
+  </footer>
+
+  <script src="js/portal.js"></script>
+</body>
+</html>
