@@ -81,18 +81,84 @@ document.getElementById('changePwForm')?.addEventListener('submit', async e => {
 });
 
 /* ─── Last inn data ─── */
-async function loadData() {
+const EMPTY_DATA = {
+  meta: { lastUpdated: new Date().toISOString().slice(0, 10), version: '1.0' },
+  categories: ['Idrett og kultur', 'Skole, helse og omsorg', 'Handel og service', 'Offentlig og frivillig'],
+  ageGroups: [
+    { id: 'barn',     label: 'Barn (0–12 år)' },
+    { id: 'ungdom',   label: 'Ungdom (13–19 år)' },
+    { id: 'voksne',   label: 'Voksne (20–64 år)' },
+    { id: 'eldre',    label: 'Eldre (65+)' },
+    { id: 'foreldre', label: 'Foreldre' },
+    { id: 'familier', label: 'Familier' }
+  ],
+  organizations: [],
+  suggestions: []
+};
+
+async function fetchWithTimeout(url, ms = 6000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
   try {
-    const res = await fetch('data.json?_=' + Date.now());
-    adminData = await res.json();
-    renderTable();
-    populateCategories();
-    populateAgeGroups();
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timer);
+    return res;
   } catch (err) {
-    showToast('Feil ved lasting av data.json', 'error');
-    console.error(err);
+    clearTimeout(timer);
+    throw err;
   }
 }
+
+async function loadData() {
+  const tbody = document.getElementById('orgTableBody');
+  if (tbody) tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#9CA3AF;padding:2rem">Laster inn data…</td></tr>';
+
+  try {
+    const res = await fetchWithTimeout('data.json?_=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    adminData = await res.json();
+  } catch (err) {
+    console.warn('Kunne ikke laste data.json – bruker tom start:', err);
+    adminData = JSON.parse(JSON.stringify(EMPTY_DATA));
+    if (tbody) tbody.innerHTML = `
+      <tr><td colspan="6" style="text-align:center;padding:2rem">
+        <p style="color:#DC2626;margin-bottom:1rem">⚠️ Kunne ikke laste data.json.<br>
+        Du kan importere en eksisterende datafil eller begynne med blanke ark.</p>
+        <label class="btn-secondary" style="cursor:pointer;display:inline-block;padding:.5rem 1rem">
+          📂 Importer data.json fra fil
+          <input type="file" accept=".json" style="display:none" onchange="importFile(this)">
+        </label>
+      </td></tr>`;
+    showToast('Starter med tom liste – importer data.json hvis du har en', 'error');
+    populateCategories();
+    populateAgeGroups();
+    return;
+  }
+
+  renderTable();
+  populateCategories();
+  populateAgeGroups();
+}
+
+/* ─── Importer data.json fra lokal fil ─── */
+function importFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      adminData = JSON.parse(e.target.result);
+      renderTable();
+      populateCategories();
+      populateAgeGroups();
+      showToast('Datafil importert!', 'success');
+    } catch {
+      showToast('Ugyldig JSON-fil', 'error');
+    }
+  };
+  reader.readAsText(file);
+}
+window.importFile = importFile;
 
 /* ─── Fyll inn kategorier og aldersgrupper i skjema ─── */
 function populateCategories() {
