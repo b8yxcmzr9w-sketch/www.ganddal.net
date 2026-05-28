@@ -3,7 +3,7 @@
     "lastUpdated": "2026-05-28",
     "version": "1.0",
     "description": "Ganddal portal – organisasjoner og tjenester",
-    "publishedAt": "2026-05-28T22:06:31.668Z"
+    "publishedAt": "2026-05-28T22:08:01.280Z"
   },
   "categories": [
     "Idrett og kultur",
@@ -143,28 +143,6 @@
       "featured": false,
       "addedDate": "2026-05-28",
       "updatedDate": "2026-05-28"
-    },
-    {
-      "id": "hommersaak-skole",
-      "name": "Hommersåk skole",
-      "url": "https://hommersaak.skole.sandnes.no",
-      "description": "Barneskole nær Ganddal. Informasjon om skolen, SFO, meny og skolekalender.",
-      "category": "Skole, helse og omsorg",
-      "ageGroups": [
-        "barn",
-        "foreldre",
-        "familier"
-      ],
-      "tags": [
-        "skole",
-        "barneskole",
-        "SFO",
-        "undervisning"
-      ],
-      "logo": null,
-      "featured": false,
-      "active": true,
-      "addedDate": "2026-05-28"
     },
     {
       "id": "sandnes-kulturskole",
