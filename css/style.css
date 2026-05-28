@@ -539,11 +539,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-bottom: 1.5rem;
 }
 .suggest-form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: .75rem;
   text-align: left;
 }
+/* Navn, beskrivelse og knapp går over begge kolonner */
+.suggest-form input[name="name"],
+.suggest-form textarea,
+.suggest-form button { grid-column: 1 / -1; }
+
 .suggest-form input,
 .suggest-form select,
 .suggest-form textarea {
@@ -557,11 +562,30 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: var(--white);
   transition: border-color var(--transition);
   outline: none;
+  box-sizing: border-box;
 }
 .suggest-form input:focus,
 .suggest-form select:focus,
 .suggest-form textarea:focus { border-color: var(--red); }
-.suggest-form textarea { resize: vertical; min-height: 80px; }
+.suggest-form textarea { resize: vertical; min-height: 90px; }
+
+/* Egendefinert pil på select */
+.suggest-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .85rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+.suggest-form select option[value=""] { color: var(--text-3); }
+
+@media (max-width: 500px) {
+  .suggest-form { grid-template-columns: 1fr; }
+  .suggest-form input[name="url"],
+  .suggest-form select { grid-column: 1 / -1; }
+}
 .btn-primary {
   background: var(--red);
   color: white;
