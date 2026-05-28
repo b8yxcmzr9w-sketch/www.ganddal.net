@@ -545,6 +545,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   text-align: left;
 }
 .suggest-form input,
+.suggest-form select,
 .suggest-form textarea {
   width: 100%;
   padding: .8rem 1rem;
@@ -558,6 +559,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   outline: none;
 }
 .suggest-form input:focus,
+.suggest-form select:focus,
 .suggest-form textarea:focus { border-color: var(--red); }
 .suggest-form textarea { resize: vertical; min-height: 80px; }
 .btn-primary {

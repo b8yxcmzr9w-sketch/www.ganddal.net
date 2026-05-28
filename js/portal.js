@@ -26,6 +26,7 @@ async function init(ageFilter) {
 
     buildCategoryFilters();
     buildAgeFilters();
+    buildSuggestCategorySelect();
     setupSearch();
     applyFilters();
   } catch (err) {
@@ -71,6 +72,17 @@ function buildAgeFilters() {
     chip.classList.add('active');
     activeAge = chip.dataset.age;
     applyFilters();
+  });
+}
+
+function buildSuggestCategorySelect() {
+  const sel = document.getElementById('suggestCategory');
+  if (!sel || !portalData?.categories) return;
+  portalData.categories.forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat;
+    opt.textContent = cat;
+    sel.appendChild(opt);
   });
 }
 

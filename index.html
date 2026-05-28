@@ -97,7 +97,9 @@
       <form class="suggest-form" id="suggestForm" action="https://formspree.io/f/mjgzlagy" method="POST">
         <input type="text" name="name" placeholder="Navn på nettsted / organisasjon *" required>
         <input type="url" name="url" placeholder="Nettadresse (https://…)" required>
-        <input type="text" name="category" placeholder="Kategori (valgfri)">
+        <select name="category" id="suggestCategory">
+          <option value="">Velg kategori (valgfri)</option>
+        </select>
         <textarea name="message" placeholder="Kort beskrivelse (valgfri)"></textarea>
         <button type="submit" class="btn-primary">Send forslag</button>
       </form>
