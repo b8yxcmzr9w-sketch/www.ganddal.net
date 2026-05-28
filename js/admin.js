@@ -3,8 +3,10 @@
 const STORAGE_KEY_HASH = 'ganddal_admin_hash';
 const STORAGE_KEY_SESSION = 'ganddal_admin_sess';
 
-let adminData = null;
+let adminData    = null;
 let editingIndex = null;
+let sortCol      = null;   // null = standardsortering
+let sortDir      = 'asc';
 
 /* ─── SHA-256 hashing ─── */
 async function sha256(text) {
@@ -181,27 +183,94 @@ function populateAgeGroups() {
   ).join('');
 }
 
+/* ─── Sorteringshjelpere ─── */
+function daysVisible(org) {
+  const d = org.addedDate ? new Date(org.addedDate) : null;
+  if (!d || isNaN(d)) return 0;
+  return Math.max(0, Math.floor((Date.now() - d) / 86400000));
+}
+
+function sortValue(org, col) {
+  switch (col) {
+    case 'name':     return (org.name || '').toLowerCase();
+    case 'category': return (org.category || '').toLowerCase();
+    case 'status':   return org.active !== false ? 0 : 1;
+    case 'featured': return org.featured ? 0 : 1;
+    case 'days':     return daysVisible(org);
+    default:         return '';
+  }
+}
+
+function sortedOrgs() {
+  const orgs = adminData?.organizations ?? [];
+  return [...orgs].sort((a, b) => {
+    if (sortCol === null) {
+      // Standard: fremhevet øverst, deretter navn A–Å
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
+      return (a.name || '').localeCompare(b.name || '', 'no');
+    }
+    const va = sortValue(a, sortCol);
+    const vb = sortValue(b, sortCol);
+    const cmp = typeof va === 'string'
+      ? va.localeCompare(vb, 'no')
+      : va - vb;
+    return sortDir === 'desc' ? -cmp : cmp;
+  });
+}
+
+function updateSortHeaders() {
+  document.querySelectorAll('th[data-col]').forEach(th => {
+    th.classList.remove('sort-asc', 'sort-desc');
+    if (th.dataset.col === sortCol) {
+      th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+    }
+  });
+}
+
+/* ─── Klikk på kolonneoverskrift ─── */
+document.querySelectorAll('th[data-col]').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (sortCol === col) {
+      sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      sortCol = col;
+      sortDir = 'asc';
+    }
+    updateSortHeaders();
+    renderTable();
+  });
+});
+
 /* ─── Rendr organisasjonstabell ─── */
 function renderTable() {
   const tbody = document.getElementById('orgTableBody');
   if (!tbody || !adminData?.organizations) return;
   if (adminData.organizations.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#9CA3AF;padding:2rem">Ingen organisasjoner lagt til ennå</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#9CA3AF;padding:2rem">Ingen organisasjoner lagt til ennå</td></tr>';
     return;
   }
-  tbody.innerHTML = adminData.organizations.map((org, i) => `
+  // Finn reell indeks (sortering endrer rekkefølge, men vi redigerer på original-indeks)
+  const sorted = sortedOrgs();
+  tbody.innerHTML = sorted.map(org => {
+    const i = adminData.organizations.indexOf(org);
+    const days = daysVisible(org);
+    const daysLabel = days === 0 ? 'I dag' : days === 1 ? '1 dag' : `${days} dager`;
+    return `
     <tr class="${org.active === false ? 'inactive-row' : ''}">
       <td><strong>${esc(org.name)}</strong></td>
       <td>${esc(org.category)}</td>
       <td><a href="${esc(org.url)}" target="_blank" rel="noopener">${getDomain(org.url)}</a></td>
       <td><span class="status-dot ${org.active !== false ? 'active' : 'inactive'}"></span> ${org.active !== false ? 'Aktiv' : 'Skjult'}</td>
       <td>${org.featured ? '⭐' : '–'}</td>
+      <td style="white-space:nowrap;color:#6B7280;font-size:.85rem">${daysLabel}</td>
       <td style="display:flex;gap:.4rem;align-items:center">
         <button class="btn-sm btn-edit" onclick="openEditModal(${i})">Rediger</button>
         <button class="btn-sm btn-delete" onclick="deleteOrg(${i})">Slett</button>
       </td>
-    </tr>
-  `).join('');
+    </tr>`;
+  }).join('');
+  updateSortHeaders();
 }
 
 /* ─── Tabvelger ─── */
@@ -305,7 +374,8 @@ document.getElementById('orgForm')?.addEventListener('submit', e => {
     featured:    document.getElementById('orgFeatured').checked,
     addedDate:   editingIndex !== null
       ? adminData.organizations[editingIndex].addedDate
-      : new Date().toISOString().slice(0, 10)
+      : new Date().toISOString().slice(0, 10),
+    updatedDate: new Date().toISOString().slice(0, 10)
   };
 
   if (!org.name || !org.url || !org.category) {

@@ -674,6 +674,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .admin-section.active { display: block; }
 .admin-tab-content { display: none; }
 .admin-tab-content.active { display: block; }
+
+/* Sorterbare kolonneoverskrifter */
+th[data-col] { cursor: pointer; user-select: none; white-space: nowrap; }
+th[data-col]:hover { background: rgba(204,17,34,.06); color: var(--red); }
+th[data-col]::after { content: ' ⇅'; opacity: .3; font-size: .8em; }
+th[data-col].sort-asc::after  { content: ' ↑'; opacity: 1; color: var(--red); }
+th[data-col].sort-desc::after { content: ' ↓'; opacity: 1; color: var(--red); }
 .admin-actions {
   display: flex;
   gap: .75rem;
