@@ -509,6 +509,18 @@ async function testGitHubToken() {
 }
 window.testGitHubToken = testGitHubToken;
 
+/* ─── Panel-lås ─── */
+function lockPanel(msg) {
+  const overlay = document.getElementById('panelOverlay');
+  const msgEl   = document.getElementById('overlayMsg');
+  if (overlay) overlay.style.display = 'flex';
+  if (msgEl)   msgEl.textContent = msg || 'Venter…';
+}
+function unlockPanel() {
+  const overlay = document.getElementById('panelOverlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
 /* ─── Publiser til GitHub ─── */
 async function publishToGitHub() {
   const token = localStorage.getItem(STORAGE_KEY_TOKEN);
@@ -523,14 +535,13 @@ async function publishToGitHub() {
     return;
   }
 
-  const btns = document.querySelectorAll('#publishBtn, [onclick="publishToGitHub()"]');
-  btns.forEach(b => { b.disabled = true; b.textContent = '⏳ Publiserer…'; });
-
   const statusEl = document.getElementById('publishStatus');
   if (statusEl) { statusEl.textContent = ''; statusEl.className = 'publish-status'; }
 
+  lockPanel('Publiserer til GitHub…');
+
   try {
-    // 1. Hent gjeldende SHA (nødvendig for å oppdatere eksisterende fil)
+    // 1. Hent gjeldende SHA
     const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
       headers: { Authorization: `token ${token}` }
     });
@@ -558,8 +569,23 @@ async function publishToGitHub() {
       throw new Error(err.message || `HTTP ${putRes.status}`);
     }
 
+    // 4. Hent ferske data fra GitHub (direkte, ikke Pages-cache)
+    lockPanel('Henter oppdatert data…');
+    await new Promise(r => setTimeout(r, 2000));
+
+    const [owner, repoName] = repo.split('/');
+    const rawUrl = `https://raw.githubusercontent.com/${owner}/${repoName}/main/data.json?_=${Date.now()}`;
+    const freshRes = await fetchWithTimeout(rawUrl, 8000);
+    if (freshRes.ok) {
+      adminData = await freshRes.json();
+      renderTable();
+      populateCategories();
+      populateAgeGroups();
+    }
+
     setDirty(false);
-    showToast('✅ Publisert! Siden er live innen ~30 sekunder.', 'success');
+    unlockPanel();
+    showToast('✅ Publisert og oppdatert!', 'success');
     if (statusEl) {
       statusEl.textContent = '✅ Publisert ' + new Date().toLocaleTimeString('no-NO');
       statusEl.className = 'publish-status ok';
@@ -567,14 +593,13 @@ async function publishToGitHub() {
 
   } catch (err) {
     console.error(err);
+    unlockPanel();
     showToast('❌ Publisering feilet: ' + err.message, 'error');
     if (statusEl) {
       statusEl.textContent = '❌ ' + err.message;
       statusEl.className = 'publish-status error';
     }
   }
-
-  btns.forEach(b => { b.disabled = false; b.textContent = '🚀 Publiser til nettstedet'; });
 }
 window.publishToGitHub = publishToGitHub;
 
