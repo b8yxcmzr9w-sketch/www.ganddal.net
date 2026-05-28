@@ -9,11 +9,21 @@ let adminData    = null;
 let editingIndex = null;
 let sortCol      = null;   // null = standardsortering
 let sortDir      = 'asc';
+let isDirty      = false;  // true = upubliserte endringer
 
 /* ─── SHA-256 hashing ─── */
 async function sha256(text) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/* ─── Publiser-knapp aktivering ─── */
+function setDirty(val) {
+  isDirty = val;
+  document.querySelectorAll('.btn-publish').forEach(btn => {
+    btn.disabled = !val;
+    btn.title = val ? '' : 'Ingen endringer å publisere';
+  });
 }
 
 /* ─── Seksjonshåndtering ─── */
@@ -145,6 +155,7 @@ async function loadData() {
   renderTable();
   populateCategories();
   populateAgeGroups();
+  setDirty(false);
 }
 
 /* ─── Importer data.json fra lokal fil ─── */
@@ -158,6 +169,7 @@ function importFile(input) {
       renderTable();
       populateCategories();
       populateAgeGroups();
+      setDirty(false);
       showToast('Datafil importert!', 'success');
     } catch {
       showToast('Ugyldig JSON-fil', 'error');
@@ -394,6 +406,7 @@ document.getElementById('orgForm')?.addEventListener('submit', e => {
   }
 
   adminData.meta.lastUpdated = new Date().toISOString().slice(0, 10);
+  setDirty(true);
   closeModal();
   renderTable();
 });
@@ -404,6 +417,7 @@ function deleteOrg(index) {
   if (!confirm(`Slett «${name}»? Dette kan ikke angres.`)) return;
   adminData.organizations.splice(index, 1);
   adminData.meta.lastUpdated = new Date().toISOString().slice(0, 10);
+  setDirty(true);
   renderTable();
   showToast('Slettet', 'success');
 }
@@ -544,6 +558,7 @@ async function publishToGitHub() {
       throw new Error(err.message || `HTTP ${putRes.status}`);
     }
 
+    setDirty(false);
     showToast('✅ Publisert! Siden er live innen ~30 sekunder.', 'success');
     if (statusEl) {
       statusEl.textContent = '✅ Publisert ' + new Date().toLocaleTimeString('no-NO');
