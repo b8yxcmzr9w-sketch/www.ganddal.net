@@ -249,10 +249,15 @@
     {
       "id": "sandnes-roede-kors",
       "name": "Sandnes Røde Kors",
-      "url": "https://www.rodekors.no/lokalforeninger/rogaland/sandnes/",
+      "url": "https://www.rodekors.no/lokalforeninger/sandnes/",
       "description": "Frivillig hjelpeorganisasjon med besøkstjeneste, nødhjelp og kurs. Alle kan bidra eller motta hjelp.",
       "category": "Offentlig og frivillig",
-      "logo": "https://www.rodekors.no/UI/android-chrome-192x192.png",
+      "ageGroups": [
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
       "tags": [
         "frivillig",
         "Røde Kors",
@@ -261,16 +266,10 @@
         "kurs",
         "nødhjelp"
       ],
-      "ageGroups": [
-        "ungdom",
-        "voksne",
-        "eldre",
-        "familier"
-      ],
-      "active": true,
+      "logo": null,
       "featured": false,
-      "addedDate": "2026-05-28",
-      "updatedDate": "2026-05-28"
+      "active": true,
+      "addedDate": "2026-05-28"
     },
     {
       "id": "sandnes-ulf",
@@ -537,6 +536,40 @@
         "Vaksine",
         "helse",
         "fastlege"
+      ],
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "foreldre",
+        "familier"
+      ],
+      "active": true,
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-28"
+    },
+    {
+      "id": "salem-ganddal",
+      "name": "Salem Ganddal",
+      "url": "https://salemganddal.no",
+      "description": "Vi i Salem Ganddal ønsker alle unge og gamle, faste medlemmer og gjester velkommen til forsamlingen vår. Salem er et felleskap med mye liv, og det er sjelden en dag uten at noe skjer. På nettsiden kan du finne ut mer om hva du kan bli en del av. Du er ønsket og hjertelig velkommen!",
+      "category": "Idrett og kultur",
+      "logo": "https://salemganddal.no/wp-content/uploads/2026/01/cropped-Normisjon_midtstilt_svart-270x270.png",
+      "tags": [
+        "Menighet",
+        "søndagsskole",
+        "barnelag",
+        "Enkel kirke",
+        "Alpha",
+        "Bibelmeditasjon",
+        "DiG Junior",
+        "Sandnes Soul Children",
+        "Drøset",
+        "Ditt nabolag",
+        "Kvinneforening",
+        "ungdommer"
       ],
       "ageGroups": [
         "barn",
