@@ -587,8 +587,10 @@ async function publishToGitHub() {
     if (!getRes.ok) throw new Error(`Kunne ikke hente fil fra GitHub (${getRes.status})`);
     const { sha } = await getRes.json();
 
-    // 2. Kode innholdet som base64 (håndterer norske tegn)
-    adminData.meta.lastUpdated = new Date().toISOString().slice(0, 10);
+    // 2. Sett unik publiseringsmarkør og kode innholdet
+    const publishedAt = new Date().toISOString();
+    adminData.meta.lastUpdated = publishedAt.slice(0, 10);
+    adminData.meta.publishedAt = publishedAt;
     const json    = JSON.stringify(adminData, null, 2);
     const encoded = btoa(unescape(encodeURIComponent(json)));
 
@@ -608,26 +610,45 @@ async function publishToGitHub() {
       throw new Error(err.message || `HTTP ${putRes.status}`);
     }
 
-    // 4. Hent ferske data fra GitHub (direkte, ikke Pages-cache)
-    lockPanel('Henter oppdatert data…');
-    await new Promise(r => setTimeout(r, 2000));
+    // 4. Poll nettstedet til det serverer de nye dataene (maks 90 sek)
+    const [, repoName] = repo.split('/');
+    const liveUrl = `https://${repoName}/data.json`;
+    let siteUpdated = false;
 
-    const [owner, repoName] = repo.split('/');
-    const rawUrl = `https://raw.githubusercontent.com/${owner}/${repoName}/main/data.json?_=${Date.now()}`;
-    const freshRes = await fetchWithTimeout(rawUrl, 8000);
-    if (freshRes.ok) {
-      adminData = await freshRes.json();
-      renderTable();
-      populateCategories();
-      populateAgeGroups();
+    for (let i = 1; i <= 30; i++) {
+      lockPanel(`Venter på at nettstedet oppdateres… ${i * 3}s`);
+      await new Promise(r => setTimeout(r, 3000));
+      try {
+        const checkRes = await fetchWithTimeout(`${liveUrl}?_=${Date.now()}`, 5000);
+        if (checkRes.ok) {
+          const live = await checkRes.json();
+          if (live.meta?.publishedAt === publishedAt) {
+            adminData = live;
+            siteUpdated = true;
+            break;
+          }
+        }
+      } catch { /* nettverksfeil – prøv igjen */ }
     }
 
+    renderTable();
+    populateCategories();
+    populateAgeGroups();
     setDirty(false);
     unlockPanel();
-    showToast('✅ Publisert og oppdatert!', 'success');
-    if (statusEl) {
-      statusEl.textContent = '✅ Publisert ' + new Date().toLocaleTimeString('no-NO');
-      statusEl.className = 'publish-status ok';
+
+    if (siteUpdated) {
+      showToast('✅ Nettstedet er oppdatert!', 'success');
+      if (statusEl) {
+        statusEl.textContent = '✅ Live ' + new Date().toLocaleTimeString('no-NO');
+        statusEl.className = 'publish-status ok';
+      }
+    } else {
+      showToast('✅ Publisert – nettstedet oppdateres om litt', 'success');
+      if (statusEl) {
+        statusEl.textContent = '✅ Publisert ' + new Date().toLocaleTimeString('no-NO') + ' – nettstedet oppdateres om litt';
+        statusEl.className = 'publish-status ok';
+      }
     }
 
   } catch (err) {
