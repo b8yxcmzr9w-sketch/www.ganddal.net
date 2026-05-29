@@ -1,9 +1,9 @@
 {
   "meta": {
-    "lastUpdated": "2026-05-28",
+    "lastUpdated": "2026-05-29",
     "version": "1.0",
     "description": "Ganddal portal – organisasjoner og tjenester",
-    "publishedAt": "2026-05-28T22:08:01.280Z"
+    "publishedAt": "2026-05-29T05:31:34.884Z"
   },
   "categories": [
     "Idrett og kultur",
@@ -228,15 +228,10 @@
     {
       "id": "sandnes-roede-kors",
       "name": "Sandnes Røde Kors",
-      "url": "https://www.rodekors.no/lokalforeninger/sandnes/",
+      "url": "https://www.rodekors.no",
       "description": "Frivillig hjelpeorganisasjon med besøkstjeneste, nødhjelp og kurs. Alle kan bidra eller motta hjelp.",
       "category": "Offentlig og frivillig",
-      "ageGroups": [
-        "ungdom",
-        "voksne",
-        "eldre",
-        "familier"
-      ],
+      "logo": "https://www.rodekors.no/UI/android-chrome-192x192.png",
       "tags": [
         "frivillig",
         "Røde Kors",
@@ -245,24 +240,24 @@
         "kurs",
         "nødhjelp"
       ],
-      "logo": null,
-      "featured": false,
-      "active": true,
-      "addedDate": "2026-05-28"
-    },
-    {
-      "id": "sandnes-ulf",
-      "name": "Sandnes Ulf",
-      "url": "https://www.sandnes-fotball.no",
-      "description": "Toppfotball i Sandnes. Hjemmekamper på Sandnes Idrettspark – ta med hele familien på kamp!",
-      "category": "Idrett og kultur",
       "ageGroups": [
-        "barn",
         "ungdom",
         "voksne",
         "eldre",
         "familier"
       ],
+      "active": true,
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-29"
+    },
+    {
+      "id": "sandnes-ulf",
+      "name": "Sandnes Ulf",
+      "url": "https://www.sandnesulf.no",
+      "description": "Toppfotball i Sandnes. Hjemmekamper på Sandnes Idrettspark – ta med hele familien på kamp!",
+      "category": "Idrett og kultur",
+      "logo": "https://www.sandnesulf.no/_/asset/no.seeds.app.football/img/logo/ulf/android-icon-192x192.png",
       "tags": [
         "fotball",
         "toppfotball",
@@ -270,10 +265,17 @@
         "kamper",
         "sport"
       ],
-      "logo": null,
-      "featured": false,
+      "ageGroups": [
+        "barn",
+        "ungdom",
+        "voksne",
+        "eldre",
+        "familier"
+      ],
       "active": true,
-      "addedDate": "2026-05-28"
+      "featured": false,
+      "addedDate": "2026-05-28",
+      "updatedDate": "2026-05-29"
     },
     {
       "id": "voksenopplaering",
@@ -617,64 +619,176 @@
       "heroTitle": "For barn på Ganddal 🧒",
       "heroDescription": "Finn aktiviteter, idrettslag, skoler og fritidstilbud for barn fra 0 til 12 år på Ganddal og i Sandnes.",
       "infoCards": [
-        { "icon": "⚽", "title": "Idrett og lek", "text": "Ganddal FK tilbyr fotball fra 5 år. Sjekk også idrettsanlegg og lekeområder i nærområdet." },
-        { "icon": "📚", "title": "Bibliotek", "text": "Sandnes bibliotek har avdeling på Ganddal med bøker, lydbøker og arrangementer for barn." },
-        { "icon": "🎵", "title": "Kulturskole", "text": "Sandnes kulturskole tilbyr musikk, dans og drama for barn fra tidlig alder. Søk om plass!" },
-        { "icon": "🏫", "title": "Skole og SFO", "text": "Ganddal skole og Hommersåk skole betjener nærmiljøet. SFO-tilbud for 1.–4. trinn." }
+        {
+          "icon": "⚽",
+          "title": "Idrett og lek",
+          "text": "Ganddal FK tilbyr fotball fra 5 år. Sjekk også idrettsanlegg og lekeområder i nærområdet."
+        },
+        {
+          "icon": "📚",
+          "title": "Bibliotek",
+          "text": "Sandnes bibliotek har avdeling på Ganddal med bøker, lydbøker og arrangementer for barn."
+        },
+        {
+          "icon": "🎵",
+          "title": "Kulturskole",
+          "text": "Sandnes kulturskole tilbyr musikk, dans og drama for barn fra tidlig alder. Søk om plass!"
+        },
+        {
+          "icon": "🏫",
+          "title": "Skole og SFO",
+          "text": "Ganddal skole og Hommersåk skole betjener nærmiljøet. SFO-tilbud for 1.–4. trinn."
+        }
       ]
     },
     "ungdom": {
       "heroTitle": "For ungdom på Ganddal 🎯",
       "heroDescription": "Finn idrettstilbud, kulturaktiviteter, jobb, rådgivning og fritidsmuligheter for ungdom (13–19 år).",
       "infoCards": [
-        { "icon": "⚽", "title": "Sport og idrett", "text": "Ganddal FK og Sandnes Ulf tilbyr fotball og treningsmuligheter. Sjekk også andre idrettslag." },
-        { "icon": "💼", "title": "Jobb og økonomi", "text": "UngInfo og NAV hjelper deg med første jobb, CV, intervjutrening og studentøkonomi." },
-        { "icon": "🎭", "title": "Kultur og kreativitet", "text": "Sandnes kulturskole har tilbud innen musikk, dans og drama – også for tenåringer." },
-        { "icon": "🚌", "title": "Ungdomskort på buss", "text": "Husk ungdomsrabatt på Kolumbus! Billigere månedskort for deg under 20 år." }
+        {
+          "icon": "⚽",
+          "title": "Sport og idrett",
+          "text": "Ganddal FK og Sandnes Ulf tilbyr fotball og treningsmuligheter. Sjekk også andre idrettslag."
+        },
+        {
+          "icon": "💼",
+          "title": "Jobb og økonomi",
+          "text": "UngInfo og NAV hjelper deg med første jobb, CV, intervjutrening og studentøkonomi."
+        },
+        {
+          "icon": "🎭",
+          "title": "Kultur og kreativitet",
+          "text": "Sandnes kulturskole har tilbud innen musikk, dans og drama – også for tenåringer."
+        },
+        {
+          "icon": "🚌",
+          "title": "Ungdomskort på buss",
+          "text": "Husk ungdomsrabatt på Kolumbus! Billigere månedskort for deg under 20 år."
+        }
       ]
     },
     "voksne": {
       "heroTitle": "For voksne på Ganddal 🏡",
       "heroDescription": "Finn tjenester, aktiviteter og ressurser for deg som er voksen innbygger på Ganddal og i Sandnes.",
       "infoCards": [
-        { "icon": "🏥", "title": "Helse", "text": "Fastlege via helsenorge.no, legevakt på 116 117, og helsetjenester via Sandnes kommune." },
-        { "icon": "💼", "title": "Arbeid og karriere", "text": "NAV Sandnes hjelper med jobb, omskolering, dagpenger og sosiale støtteordninger." },
-        { "icon": "🏛️", "title": "Kommunale tjenester", "text": "Byggesøknader, eiendomsskatt, renovasjon og sosiale tjenester via sandnes.kommune.no." },
-        { "icon": "🤝", "title": "Frivillighet", "text": "Bli frivillig via Frivillighetsentralen eller Røde Kors. Gjør en forskjell i nærmiljøet!" }
+        {
+          "icon": "🏥",
+          "title": "Helse",
+          "text": "Fastlege via helsenorge.no, legevakt på 116 117, og helsetjenester via Sandnes kommune."
+        },
+        {
+          "icon": "💼",
+          "title": "Arbeid og karriere",
+          "text": "NAV Sandnes hjelper med jobb, omskolering, dagpenger og sosiale støtteordninger."
+        },
+        {
+          "icon": "🏛️",
+          "title": "Kommunale tjenester",
+          "text": "Byggesøknader, eiendomsskatt, renovasjon og sosiale tjenester via sandnes.kommune.no."
+        },
+        {
+          "icon": "🤝",
+          "title": "Frivillighet",
+          "text": "Bli frivillig via Frivillighetsentralen eller Røde Kors. Gjør en forskjell i nærmiljøet!"
+        }
       ]
     },
     "foreldre": {
       "heroTitle": "For foreldre på Ganddal 👨‍👩‍👧",
       "heroDescription": "Alt du trenger som forelder – skole, barnehage, helsestasjon, fritidsaktiviteter og støtteordninger.",
       "infoCards": [
-        { "icon": "🏫", "title": "Skole og SFO", "text": "Ganddal skole og Hommersåk skole. Kontakt skolen via Visma InSchool (foreldreportalen)." },
-        { "icon": "🌱", "title": "Barnehage", "text": "Søk barnehageplass via sandnes.kommune.no. Søknadsfrist 1. mars for plass fra august." },
-        { "icon": "💉", "title": "Helsestasjon", "text": "Helsesjekk, vaksinasjon og råd for barn 0–5 år. Skolehelsetjeneste fra 1. klasse." },
-        { "icon": "⚽", "title": "Fritidsaktiviteter", "text": "Ganddal FK, kulturskolen og biblioteket har gode tilbud for hele familien." }
+        {
+          "icon": "🏫",
+          "title": "Skole og SFO",
+          "text": "Ganddal skole og Hommersåk skole. Kontakt skolen via Visma InSchool (foreldreportalen)."
+        },
+        {
+          "icon": "🌱",
+          "title": "Barnehage",
+          "text": "Søk barnehageplass via sandnes.kommune.no. Søknadsfrist 1. mars for plass fra august."
+        },
+        {
+          "icon": "💉",
+          "title": "Helsestasjon",
+          "text": "Helsesjekk, vaksinasjon og råd for barn 0–5 år. Skolehelsetjeneste fra 1. klasse."
+        },
+        {
+          "icon": "⚽",
+          "title": "Fritidsaktiviteter",
+          "text": "Ganddal FK, kulturskolen og biblioteket har gode tilbud for hele familien."
+        }
       ]
     },
     "eldre": {
       "heroTitle": "For eldre på Ganddal 🌿",
       "heroDescription": "Finn helsetilbud, transport, aktiviteter og støttetjenester for deg som er 65 år eller eldre.",
       "infoCards": [
-        { "icon": "🏥", "title": "Helse og omsorg", "text": "Fastlege, hjemmesykepleie og eldreomsorgtjenester via Sandnes kommune. Helsenorge.no for timeavtaler." },
-        { "icon": "🚌", "title": "Transport", "text": "Kolumbus gir rabatt til deg over 67 år. Bestill TT-transport via kommunen ved behov." },
-        { "icon": "📚", "title": "Bibliotek", "text": "Sandnes bibliotek har e-bøker, lydbøker og leseklubb. Gratis og tilgjengelig på nett og lokalt." },
-        { "icon": "🤝", "title": "Besøkstjeneste", "text": "Røde Kors og Frivillighetsentralen tilbyr selskap og hjelp for deg som ønsker det." },
-        { "icon": "⛪", "title": "Menighet og fellesskap", "text": "Sandnes kirke og lokale menigheter har aktiviteter og fellesskap for eldre i nærmiljøet." },
-        { "icon": "💰", "title": "Trygd og ytelser", "text": "NAV Sandnes hjelper deg med alderspensjon, uføretrygd og andre rettigheter du har krav på." }
+        {
+          "icon": "🏥",
+          "title": "Helse og omsorg",
+          "text": "Fastlege, hjemmesykepleie og eldreomsorgtjenester via Sandnes kommune. Helsenorge.no for timeavtaler."
+        },
+        {
+          "icon": "🚌",
+          "title": "Transport",
+          "text": "Kolumbus gir rabatt til deg over 67 år. Bestill TT-transport via kommunen ved behov."
+        },
+        {
+          "icon": "📚",
+          "title": "Bibliotek",
+          "text": "Sandnes bibliotek har e-bøker, lydbøker og leseklubb. Gratis og tilgjengelig på nett og lokalt."
+        },
+        {
+          "icon": "🤝",
+          "title": "Besøkstjeneste",
+          "text": "Røde Kors og Frivillighetsentralen tilbyr selskap og hjelp for deg som ønsker det."
+        },
+        {
+          "icon": "⛪",
+          "title": "Menighet og fellesskap",
+          "text": "Sandnes kirke og lokale menigheter har aktiviteter og fellesskap for eldre i nærmiljøet."
+        },
+        {
+          "icon": "💰",
+          "title": "Trygd og ytelser",
+          "text": "NAV Sandnes hjelper deg med alderspensjon, uføretrygd og andre rettigheter du har krav på."
+        }
       ]
     },
     "ny-pa-ganddal": {
       "heroTitle": "Ny på Ganddal? Velkommen! 👋",
       "heroDescription": "Her finner du det viktigste du trenger for å komme godt i gang som innbygger på Ganddal og i Sandnes.",
       "infoCards": [
-        { "icon": "📋", "title": "1. Registrer deg i folkeregisteret", "text": "Meld adresseendring til Skatteetaten innen 8 dager etter innflytting. Gjøres på skatteetaten.no." },
-        { "icon": "🩺", "title": "2. Finn fastlege", "text": "Velg fastlege på helsenorge.no. Du kan bytte inntil to ganger per år. Sjekk ventelister." },
-        { "icon": "🚌", "title": "3. Lær deg bussrutene", "text": "Last ned Kolumbus-appen eller gå til kolumbus.no for rutetider og billettkjøp. Ganddal har gode ruter." },
-        { "icon": "🏫", "title": "4. Skoleplass / barnehageplass", "text": "Søk barnehageplass og finn nærskole via sandnes.kommune.no. Frist for barnehage er 1. mars." },
-        { "icon": "🗑️", "title": "5. Avfallshenting", "text": "Finn tømmingskalender og regler for søppelsortering via IVAR IKS eller Sandnes kommune." },
-        { "icon": "🤝", "title": "6. Bli kjent i nærområdet", "text": "Bli med i idrettslag, velforening eller frivilligorganisasjon. Sjekk portalen for tilbud i nærheten." }
+        {
+          "icon": "📋",
+          "title": "1. Registrer deg i folkeregisteret",
+          "text": "Meld adresseendring til Skatteetaten innen 8 dager etter innflytting. Gjøres på skatteetaten.no."
+        },
+        {
+          "icon": "🩺",
+          "title": "2. Finn fastlege",
+          "text": "Velg fastlege på helsenorge.no. Du kan bytte inntil to ganger per år. Sjekk ventelister."
+        },
+        {
+          "icon": "🚌",
+          "title": "3. Lær deg bussrutene",
+          "text": "Last ned Kolumbus-appen eller gå til kolumbus.no for rutetider og billettkjøp. Ganddal har gode ruter."
+        },
+        {
+          "icon": "🏫",
+          "title": "4. Skoleplass / barnehageplass",
+          "text": "Søk barnehageplass og finn nærskole via sandnes.kommune.no. Frist for barnehage er 1. mars."
+        },
+        {
+          "icon": "🗑️",
+          "title": "5. Avfallshenting",
+          "text": "Finn tømmingskalender og regler for søppelsortering via IVAR IKS eller Sandnes kommune."
+        },
+        {
+          "icon": "🤝",
+          "title": "6. Bli kjent i nærområdet",
+          "text": "Bli med i idrettslag, velforening eller frivilligorganisasjon. Sjekk portalen for tilbud i nærheten."
+        }
       ]
     }
   }
