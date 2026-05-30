@@ -17,7 +17,7 @@ const PAGE_LABELS = {
   'barn':          'For barn',
   'ungdom':        'For ungdom',
   'voksne':        'For voksne',
-  'foreldre':      'For foreldre',
+  'foreldre':      'Barnefamilier',
   'eldre':         'For eldre',
   'ny-pa-ganddal': 'Ny på Ganddal'
 };
