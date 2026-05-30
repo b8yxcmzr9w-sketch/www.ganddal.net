@@ -218,6 +218,7 @@ function renderCard(org) {
     <span class="card-domain">${escHtml(domain)}</span>
     <span class="card-arrow">→</span>
   </div>
+  ${buildSearchHelper(org)}
 </article>`;
 }
 
@@ -254,10 +255,15 @@ function ensureOrgModal() {
           Besøk nettstedet →
         </a>
       </div>
+      <div id="pmodalSearchHelper" class="search-helper pmodal-search-helper"></div>
     </div>`;
   document.body.appendChild(el);
 
   document.getElementById('pmodalClose').addEventListener('click', closeOrgModal);
+  document.getElementById('pmodalSearchHelper').addEventListener('click', e => {
+    const copyBtn = e.target.closest('.search-copy-btn');
+    if (copyBtn) handleCopyClick(copyBtn);
+  });
   el.addEventListener('click', e => { if (e.target === el) closeOrgModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOrgModal(); });
 }
@@ -299,6 +305,9 @@ function openOrgModal(org) {
   tagContainer.innerHTML = tags.length
     ? `<div class="pmodal-tag-row">${tags.map(t => `<span class="pmodal-tag">#${escHtml(t)}</span>`).join('')}</div>`
     : '';
+
+  const helper = document.getElementById('pmodalSearchHelper');
+  if (helper) helper.innerHTML = searchHelperInner(org);
 
   const overlay = document.getElementById('orgDetailModal');
   overlay.classList.add('open');
@@ -348,6 +357,37 @@ function getDomain(url) {
 }
 function escHtml(str) {
   return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/* ─── Søkehjelp-komponent ─── */
+function searchHelperInner(org) {
+  const searchText = org.name + ' Sandnes';
+  const q = encodeURIComponent(searchText);
+  return `
+    <span class="search-helper-label">Lenken virker ikke?</span>
+    <div class="search-helper-btns">
+      <button class="search-copy-btn" data-copy="${escHtml(searchText)}" title="Kopier søketekst til utklippstavlen">📋</button>
+      <a href="https://www.google.com/search?q=${q}" target="_blank" rel="noopener" class="search-engine-btn" title="Søk på Google">
+        <img src="https://www.google.com/s2/favicons?domain=google.com&sz=32" alt="Google" width="18" height="18">
+      </a>
+      <a href="https://duckduckgo.com/?q=${q}" target="_blank" rel="noopener" class="search-engine-btn" title="Søk på DuckDuckGo">
+        <img src="https://www.google.com/s2/favicons?domain=duckduckgo.com&sz=32" alt="DuckDuckGo" width="18" height="18">
+      </a>
+      <a href="https://www.bing.com/search?q=${q}" target="_blank" rel="noopener" class="search-engine-btn" title="Søk på Bing">
+        <img src="https://www.google.com/s2/favicons?domain=bing.com&sz=32" alt="Bing" width="18" height="18">
+      </a>
+    </div>`;
+}
+function buildSearchHelper(org) {
+  return `<div class="search-helper">${searchHelperInner(org)}</div>`;
+}
+function handleCopyClick(btn) {
+  const text = btn.dataset.copy;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  }).catch(() => {});
 }
 
 /* ─── Mobil-meny ─── */
@@ -404,16 +444,24 @@ function setupSuggestForm() {
 function setupCardClicks() {
   const grid = document.getElementById('cardsGrid');
   if (!grid) return;
-  const handle = e => {
+  grid.addEventListener('click', e => {
+    // Kopierknapp
+    const copyBtn = e.target.closest('.search-copy-btn');
+    if (copyBtn) { handleCopyClick(copyBtn); return; }
+    // Søkemotorlenker og resten av søkehjelp-seksjonen – ikke åpne modal
+    if (e.target.closest('.search-helper')) return;
     const card = e.target.closest('.card[data-org-id]');
     if (!card) return;
-    // Ikke åpne modal dersom brukeren klikker på «Besøk»-lenken inni modalen
     const org = allOrgs.find(o => o.id === card.dataset.orgId);
     if (org) openOrgModal(org);
-  };
-  grid.addEventListener('click', handle);
+  });
   grid.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') handle(e);
+    if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('.search-helper')) {
+      const card = e.target.closest('.card[data-org-id]');
+      if (!card) return;
+      const org = allOrgs.find(o => o.id === card.dataset.orgId);
+      if (org) openOrgModal(org);
+    }
   });
 }
 

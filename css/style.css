@@ -427,6 +427,61 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .card:hover .card-arrow { transform: translateX(4px); }
 
+/* ===== SØKEHJELP-KOMPONENT ===== */
+.search-helper {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem .75rem;
+  background: #F8FAFC;
+  border-top: 1px solid var(--border);
+  font-size: .73rem;
+  color: var(--text-4);
+}
+.search-helper-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.search-helper-btns {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  flex-shrink: 0;
+}
+.search-copy-btn,
+.search-engine-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: white;
+  cursor: pointer;
+  font-size: .82rem;
+  padding: 0;
+  text-decoration: none;
+  color: inherit;
+  transition: background var(--transition), border-color var(--transition);
+}
+.search-copy-btn:hover,
+.search-engine-btn:hover {
+  background: #EDF2F7;
+  border-color: var(--border-2);
+}
+.search-engine-btn img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
+}
+.pmodal-search-helper {
+  border-radius: 0 0 12px 12px;
+}
+
 /* ===== PORTAL-DETALJMODAL ===== */
 .portal-modal-overlay {
   position: fixed; inset: 0;
