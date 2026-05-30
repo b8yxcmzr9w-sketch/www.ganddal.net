@@ -232,30 +232,27 @@ function renderCards() {
   });
 
   grid.innerHTML = sorted.map(renderCard).join('');
-  setupScreenshotObserver();
 }
 
 function renderCard(org) {
   const cfg = CAT_CONFIG[org.category] || { color: '#6B7280', bg: '#F3F4F6', emoji: '🔗' };
   const faviconUrl = getFaviconUrl(org);
   const domain = getDomain(org.url);
-  const ages = (org.ageGroups || [])
-    .map(id => portalData?.ageGroups?.find(a => a.id === id)?.label?.split(' ')[0] || id)
-    .slice(0, 4);
 
-  return `
-<article class="card" data-site-url="${escHtml(org.url)}" data-org-id="${escHtml(org.id)}"
+  if (org.featured) {
+    const ages = (org.ageGroups || [])
+      .map(id => portalData?.ageGroups?.find(a => a.id === id)?.label?.split(' ')[0] || id)
+      .slice(0, 4);
+    return `
+<article class="card card-featured" data-site-url="${escHtml(org.url)}" data-org-id="${escHtml(org.id)}"
   role="button" tabindex="0" aria-label="Vis detaljer om ${escHtml(org.name)}">
-  <div class="card-image" style="background:${cfg.bg}">
-    <div class="card-screenshot" aria-hidden="true"></div>
+  <div class="card-featured-top" style="background:${cfg.bg}">
     <div class="card-favicon-wrap">
-      <img src="${faviconUrl}"
-           alt="${escHtml(org.name)}"
-           loading="lazy"
+      <img src="${faviconUrl}" alt="${escHtml(org.name)}" loading="lazy"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <span class="card-favicon-emoji" style="display:none">${cfg.emoji}</span>
     </div>
-    ${org.featured ? '<span class="card-featured-badge">⭐ Anbefalt</span>' : ''}
+    <span class="card-featured-badge">⭐ Anbefalt</span>
   </div>
   <div class="card-body">
     <span class="card-category-badge" style="color:${cfg.color};background:${cfg.bg}">${org.category}</span>
@@ -267,7 +264,22 @@ function renderCard(org) {
     <span class="card-domain">${escHtml(domain)}</span>
     <span class="card-arrow">→</span>
   </div>
-  ${buildSearchHelper(org)}
+</article>`;
+  }
+
+  return `
+<article class="card card-compact" data-site-url="${escHtml(org.url)}" data-org-id="${escHtml(org.id)}"
+  role="button" tabindex="0" aria-label="Vis detaljer om ${escHtml(org.name)}">
+  <div class="card-compact-logo" style="background:${cfg.bg}">
+    <img src="${faviconUrl}" alt="${escHtml(org.name)}" loading="lazy"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <span class="card-favicon-emoji" style="display:none">${cfg.emoji}</span>
+  </div>
+  <div class="card-compact-body">
+    <h3 class="card-name">${escHtml(org.name)}</h3>
+    <span class="card-category-badge" style="color:${cfg.color};background:${cfg.bg}">${org.category}</span>
+  </div>
+  <span class="card-arrow">→</span>
 </article>`;
 }
 
