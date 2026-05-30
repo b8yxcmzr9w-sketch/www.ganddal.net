@@ -62,7 +62,13 @@
   </header>
 
   <!-- ===== FILTRE ===== -->
-  <div class="filters-wrap">
+  <div class="filters-wrap" id="filtersWrap">
+    <button class="filters-toggle" id="filtersToggle" aria-expanded="true" aria-label="Vis/skjul filtre">
+      <span id="filtersToggleLabel">Kategori &amp; Alder</span>
+      <svg class="filters-chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+      </svg>
+    </button>
     <div class="filters-inner">
       <div class="filter-row">
         <span class="filter-label">Kategori</span>

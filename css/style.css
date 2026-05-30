@@ -250,6 +250,49 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: white;
 }
 
+/* ─── Filter-kollaps (mobil) ─── */
+.filters-toggle {
+  display: none;
+  width: 100%;
+  padding: .55rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--text-2);
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  gap: .5rem;
+}
+.filters-toggle:hover { color: var(--text); }
+.filters-chevron {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--text-3);
+  transition: transform var(--transition);
+}
+
+@media (max-width: 640px) {
+  .filters-toggle { display: flex; }
+  .filters-inner {
+    max-height: 400px;
+    overflow: hidden;
+    transition: max-height 0.28s ease, padding 0.28s ease;
+  }
+  .filters-wrap.collapsed .filters-inner {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .filters-wrap.collapsed .filters-chevron {
+    transform: rotate(-180deg);
+  }
+}
+
 /* ===== RESULTATER ===== */
 .content-wrap {
   max-width: 1280px;

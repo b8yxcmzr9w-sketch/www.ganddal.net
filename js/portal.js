@@ -138,6 +138,54 @@ function debounce(fn, ms) {
   return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
 }
 
+/* ─── Filter-kollaps (mobil) ─── */
+function setupFiltersCollapse() {
+  const wrap = document.getElementById('filtersWrap');
+  const toggle = document.getElementById('filtersToggle');
+  if (!wrap || !toggle) return;
+
+  let manuallyOpened = false;
+
+  toggle.addEventListener('click', () => {
+    const isCollapsed = wrap.classList.toggle('collapsed');
+    toggle.setAttribute('aria-expanded', String(!isCollapsed));
+    manuallyOpened = !isCollapsed;
+  });
+
+  window.addEventListener('scroll', () => {
+    if (window.innerWidth > 640) return;
+    const y = window.scrollY;
+
+    if (y < 30) {
+      if (wrap.classList.contains('collapsed')) {
+        wrap.classList.remove('collapsed');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+      manuallyOpened = false;
+      return;
+    }
+    if (manuallyOpened) return;
+    if (y > 100 && !wrap.classList.contains('collapsed')) {
+      wrap.classList.add('collapsed');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  }, { passive: true });
+}
+
+function updateFilterToggleLabel() {
+  const label = document.getElementById('filtersToggleLabel');
+  if (!label) return;
+  const cat = activeCategory === 'all' ? null : activeCategory;
+  const ageLabel = activeAge === 'all'
+    ? null
+    : portalData?.ageGroups?.find(a => a.id === activeAge)?.label;
+  if (!cat && !ageLabel) {
+    label.textContent = 'Kategori & Alder';
+  } else {
+    label.textContent = [cat, ageLabel].filter(Boolean).join(' · ');
+  }
+}
+
 /* ─── Filtrering ─── */
 function applyFilters() {
   filteredOrgs = allOrgs.filter(org => {
@@ -150,6 +198,7 @@ function applyFilters() {
   });
   renderCards();
   updateResultsBar();
+  updateFilterToggleLabel();
 }
 
 /* ─── Resultatinfo ─── */
@@ -470,6 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupMobileMenu();
   setupSuggestForm();
   setupCardClicks();
+  setupFiltersCollapse();
   const ageFilter = document.body.dataset.ageFilter || null;
   init(ageFilter);
 });
