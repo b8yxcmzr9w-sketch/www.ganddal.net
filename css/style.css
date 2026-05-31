@@ -503,11 +503,28 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-size: .73rem;
   color: var(--text-4);
 }
-.search-helper-label {
+.search-report-btn {
   flex: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: .73rem;
+  color: var(--text-4);
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: color var(--transition);
+}
+.search-report-btn:hover { color: var(--text-2); }
+.search-report-btn.search-report-sent {
+  text-decoration: none;
+  cursor: default;
+  color: var(--text-3);
 }
 .search-helper-btns {
   display: flex;

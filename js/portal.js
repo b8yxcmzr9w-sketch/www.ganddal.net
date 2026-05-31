@@ -323,7 +323,9 @@ function ensureOrgModal() {
   document.getElementById('pmodalClose').addEventListener('click', closeOrgModal);
   document.getElementById('pmodalSearchHelper').addEventListener('click', e => {
     const copyBtn = e.target.closest('.search-copy-btn');
-    if (copyBtn) handleCopyClick(copyBtn);
+    if (copyBtn) { handleCopyClick(copyBtn); return; }
+    const reportBtn = e.target.closest('.search-report-btn');
+    if (reportBtn) handleReportClick(reportBtn);
   });
   el.addEventListener('click', e => { if (e.target === el) closeOrgModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOrgModal(); });
@@ -425,8 +427,8 @@ function searchHelperInner(org) {
   const searchText = org.name + ' Sandnes';
   const q = encodeURIComponent(searchText);
   return `
-    <span class="search-helper-label">Lenken virker ikke?</span>
-    <div class="search-helper-btns">
+    <button class="search-report-btn" data-org-name="${escHtml(org.name)}" data-org-url="${escHtml(org.url)}">Lenken virker ikke?</button>
+    <div class="search-helper-btns" style="display:none">
       <button class="search-copy-btn" data-copy="${escHtml(searchText)}" title="Kopier søketekst til utklippstavlen">📋</button>
       <a href="https://www.google.com/search?q=${q}" target="_blank" rel="noopener" class="search-engine-btn" title="Søk på Google">
         <img src="https://www.google.com/s2/favicons?domain=google.com&sz=32" alt="Google" width="18" height="18">
@@ -442,7 +444,25 @@ function searchHelperInner(org) {
 function buildSearchHelper(org) {
   return `<div class="search-helper">${searchHelperInner(org)}</div>`;
 }
-function handleCopyClick(btn) {
+async function handleReportClick(btn) {
+  btn.textContent = 'Takk for tilbakemeldingen! ✓';
+  btn.disabled = true;
+  btn.classList.add('search-report-sent');
+  const btns = btn.closest('.search-helper')?.querySelector('.search-helper-btns');
+  if (btns) btns.style.display = 'flex';
+  try {
+    await fetch('https://formspree.io/f/mjgzlagy', {
+      method: 'POST',
+      body: JSON.stringify({
+        _subject: `Ødelagt lenke: ${btn.dataset.orgName}`,
+        type: 'broken-link',
+        name: btn.dataset.orgName,
+        url: btn.dataset.orgUrl
+      }),
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+    });
+  } catch { /* silent – bruker har allerede fått tilbakemelding */ }
+}
   const text = btn.dataset.copy;
   navigator.clipboard.writeText(text).then(() => {
     const orig = btn.textContent;
