@@ -463,6 +463,7 @@ async function handleReportClick(btn) {
     });
   } catch { /* silent – bruker har allerede fått tilbakemelding */ }
 }
+function handleCopyClick(btn) {
   const text = btn.dataset.copy;
   navigator.clipboard.writeText(text).then(() => {
     const orig = btn.textContent;
