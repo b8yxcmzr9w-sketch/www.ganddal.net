@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hvem av dem? — spørreskjema</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    max-width: 620px; margin: 0 auto; padding: 24px 18px 80px;
+    background: #faf7f2; color: #2b2620; line-height: 1.5;
+  }
+  h1 { font-size: 28px; margin: 0 0 4px; letter-spacing: -0.5px; }
+  .sub { color: #6b6152; font-size: 15px; margin: 0 0 28px; }
+  .warn {
+    background: #fff3d6; border-left: 3px solid #d9a441;
+    padding: 12px 14px; font-size: 14px; margin-bottom: 28px;
+  }
+  h2 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: #8a7d68; margin: 34px 0 14px; border-bottom: 1px solid #e3dbcc; padding-bottom: 6px;
+  }
+  .who { margin-bottom: 26px; }
+  .who label { font-size: 15px; display: block; margin-bottom: 8px; }
+  input[type=text] {
+    width: 100%; padding: 9px 11px; font-family: inherit; font-size: 15px;
+    border: 1px solid #cfc5b2; border-radius: 5px; background: #fff;
+  }
+  .q { margin-bottom: 14px; }
+  .qt { font-size: 16px; margin-bottom: 7px; }
+  .qt b { color: #8a7d68; font-weight: normal; margin-right: 6px; }
+  .opts { display: flex; gap: 7px; }
+  .opts button {
+    flex: 1; padding: 9px 4px; font-size: 20px; cursor: pointer;
+    border: 1px solid #cfc5b2; border-radius: 6px; background: #fff;
+    transition: all .12s;
+  }
+  .opts button:hover { border-color: #8a7d68; }
+  .opts button.sel { background: #2b2620; border-color: #2b2620; transform: scale(1.04); }
+  .custom textarea {
+    width: 100%; padding: 9px 11px; font-family: inherit; font-size: 15px;
+    border: 1px solid #cfc5b2; border-radius: 5px; min-height: 52px; background: #fff;
+  }
+  .bar {
+    position: fixed; bottom: 0; left: 0; right: 0; background: #2b2620;
+    padding: 13px 18px; display: flex; align-items: center; gap: 14px; justify-content: center;
+  }
+  .bar span { color: #cfc5b2; font-size: 14px; }
+  .bar button {
+    padding: 10px 22px; font-family: inherit; font-size: 15px; cursor: pointer;
+    background: #d9a441; color: #2b2620; border: 0; border-radius: 6px; font-weight: bold;
+  }
+  .feil {
+    background: #fce8e6; border-left: 3px solid #c0392b; color: #8e2b21;
+    padding: 10px 12px; font-size: 15px; margin-top: 10px; border-radius: 0 5px 5px 0;
+  }
+  #hjelp { font-size: 14px; color: #6b6152; margin-top: 10px; }
+  #out {
+    width: 100%; min-height: 200px; margin-top: 14px; padding: 12px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 13px;
+    border: 1px solid #cfc5b2; border-radius: 6px; display: none; background: #fff;
+  }
+</style>
+</head>
+<body>
+
+<h1>Hvem av dem?</h1>
+<p class="sub">Spørreskjema til brudeparet · Fugli News</p>
+
+<div class="warn">
+  <b>Svar hver for seg.</b> Ikke se på hverandres svar — det er der det blir moro.
+  Svarene havner i bryllupsavisa, så hopp over det du ikke vil ha på trykk.
+  Du trenger ikke svare på alt.
+</div>
+
+<div class="who">
+  <label>Hvem er du? <em style="color:#8a7d68">Skriv kun fornavnet.</em></label>
+  <input type="text" id="navn" placeholder="Fornavn" autocomplete="off">
+  <div id="navnfeil"></div>
+</div>
+
+<div id="skjema"></div>
+
+<h2>Egne spørsmål</h2>
+<p class="sub" style="font-size:14px">Tre ting bare dere vet, som gjestene burde få gjette på.</p>
+<div class="custom" id="custom"></div>
+
+<div class="bar">
+  <span id="teller">0 besvart</span>
+  <button onclick="lagSvar()">Send svaret</button>
+</div>
+
+<textarea id="out" readonly></textarea>
+<p id="hjelp"></p>
+
+<script>
+const seksjoner = [
+  ["Hverdagen", [
+    "Hvem sovner først på sofaen?",
+    "Hvem bruker lengst tid på badet?",
+    "Hvem kjører når dere er på langtur?",
+    "Hvem har flest uleste meldinger på telefonen?",
+    "Hvem legger igjen kaffekoppen på feil sted?",
+    "Hvem lager maten til vanlig?",
+    "Hvem rydder etterpå?",
+    "Hvem er først oppe om morgenen?",
+    "Hvem styrer fjernkontrollen?",
+    "Hvem glemmer å svare på invitasjoner?"
+  ]],
+  ["Under press", [
+    "Hvem er mest sannsynlig å komme for sent?",
+    "Hvem gråter først i bryllupet?",
+    "Hvem er best til å lese kart?",
+    "Hvem tar regningen på restaurant?",
+    "Hvem klager mest når det er kaldt?",
+    "Hvem pakker kofferten sist?",
+    "Hvem er mest konkurranseinnstilt i selskapsleker?",
+    "Hvem tar oppvasken uten å bli bedt om det?"
+  ]],
+  ["Historien deres", [
+    "Hvem tok kontakt først?",
+    "Hvem sa «jeg elsker deg» først?",
+    "Hvem planla den første daten?",
+    "Hvem var mest nervøs for å møte svigerfamilien?",
+    "Hvem foreslo bryllup først?",
+    "Hvem har brukt mest tid på bryllupsplanleggingen?",
+    "Hvem gledet seg mest til denne dagen?"
+  ]],
+  ["Litt sære, men om dere", [
+    "Hvem synger høyest i bilen?",
+    "Hvem har den rareste hobbyen?",
+    "Hvem er dårligst til å holde på en overraskelse?",
+    "Hvem googler symptomer?",
+    "Hvem er best til å danse?"
+  ]]
+];
+
+const svar = {};
+const alle = [];
+let n = 0;
+const wrap = document.getElementById('skjema');
+
+seksjoner.forEach(([tittel, sporsmal]) => {
+  const h = document.createElement('h2');
+  h.textContent = tittel;
+  wrap.appendChild(h);
+  sporsmal.forEach(s => {
+    n++;
+    alle.push([n, s]);
+    const nr = n;
+    const d = document.createElement('div');
+    d.className = 'q';
+    d.innerHTML = '<div class="qt"><b>' + nr + '.</b>' + s + '</div>';
+    const o = document.createElement('div');
+    o.className = 'opts';
+    [['B','👰'],['G','🤵'],['BB','💑']].forEach(([kode, emoji]) => {
+      const b = document.createElement('button');
+      b.textContent = emoji;
+      b.onclick = () => {
+        if (svar[nr] === kode) { delete svar[nr]; }
+        else { svar[nr] = kode; }
+        [...o.children].forEach(c => c.classList.remove('sel'));
+        if (svar[nr] === kode) b.classList.add('sel');
+        tell();
+      };
+      o.appendChild(b);
+    });
+    d.appendChild(o);
+    wrap.appendChild(d);
+  });
+});
+
+const cw = document.getElementById('custom');
+for (let i = 1; i <= 3; i++) {
+  const d = document.createElement('div');
+  d.className = 'q';
+  d.innerHTML = '<textarea id="eg' + i + '" placeholder="Spørsmål ' + i + ' — og hva svaret er"></textarea>';
+  cw.appendChild(d);
+}
+
+function tell() {
+  const c = Object.keys(svar).length;
+  document.getElementById('teller').textContent = c + ' av ' + n + ' besvart';
+}
+
+const GODKJENTE = ['sara', 'martin'];
+const MOTTAKER = 'grovt.videst.3g@icloud.com';
+
+function lagSvar() {
+  const feltet = document.getElementById('navn');
+  const feil = document.getElementById('navnfeil');
+  const raa = feltet.value.trim();
+  const forste = raa.split(/\s+/)[0] || '';
+
+  feil.textContent = '';
+  feil.className = '';
+
+  if (!forste) {
+    feil.textContent = 'Du må skrive fornavnet ditt først.';
+    feil.className = 'feil';
+    feltet.focus();
+    feltet.scrollIntoView({behavior: 'smooth', block: 'center'});
+    return;
+  }
+  if (!GODKJENTE.includes(forste.toLowerCase())) {
+    const pent = forste.charAt(0).toUpperCase() + forste.slice(1).toLowerCase();
+    feil.textContent = 'Hei ' + pent + ', dette er ikke ment for deg.';
+    feil.className = 'feil';
+    feltet.focus();
+    feltet.scrollIntoView({behavior: 'smooth', block: 'center'});
+    return;
+  }
+
+  const navn = forste.charAt(0).toUpperCase() + forste.slice(1).toLowerCase();
+  let t = 'SVAR FRA: ' + navn + '\n\n';
+  alle.forEach(([nr, s]) => {
+    if (svar[nr]) t += nr + '. ' + svar[nr] + '  — ' + s + '\n';
+  });
+  t += '\nEGNE SPØRSMÅL:\n';
+  for (let i = 1; i <= 3; i++) {
+    const v = document.getElementById('eg' + i).value.trim();
+    if (v) t += '- ' + v + '\n';
+  }
+  const out = document.getElementById('out');
+  out.value = t;
+  out.style.display = 'block';
+  out.select();
+  try { document.execCommand('copy'); } catch (e) {}
+
+  const emne = 'Bryllupsavisa - svar fra ' + navn;
+  window.location.href = 'mailto:' + MOTTAKER +
+    '?subject=' + encodeURIComponent(emne) +
+    '&body=' + encodeURIComponent(t);
+
+  document.getElementById('teller').textContent = 'Takk, ' + navn + '!';
+  document.getElementById('hjelp').innerHTML =
+    'E-posten skal ha åpnet seg med svarene ferdig utfylt — bare trykk <b>send</b>.<br>' +
+    'Skjedde det ingenting? Teksten under er kopiert, så du kan lime den inn hvor som helst.';
+  document.getElementById('hjelp').scrollIntoView({behavior: 'smooth'});
+}
+
+tell();
+</script>
+
+</body>
+</html>
