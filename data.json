@@ -1,9 +1,9 @@
 {
   "meta": {
-    "lastUpdated": "2026-05-29",
+    "lastUpdated": "2026-08-19",
     "version": "1.0",
     "description": "Ganddal portal – organisasjoner og tjenester",
-    "publishedAt": "2026-05-29T05:31:34.884Z"
+    "publishedAt": "2026-08-19T20:50:18.805Z"
   },
   "categories": [
     "Idrett og kultur",
@@ -611,6 +611,31 @@
       "featured": false,
       "addedDate": "2026-05-28",
       "updatedDate": "2026-05-28"
+    },
+    {
+      "id": "teaterverkstedet-ganddal",
+      "name": "Teaterverkstedet Ganddal",
+      "url": "https://www.teaterverkstedet.com/",
+      "description": "Teaterverkstedet Ganddal er en organisasjon bestående av tre teatergrupper med to årlige oppsetninger og flere små og store prosjekter utenom",
+      "category": "Idrett og kultur",
+      "logo": "https://impro.usercontent.one/appid/oneComWsb/domain/teaterverkstedet.com/media/teaterverkstedet.com/bilder/logo_favorite_website.png?etag=%22323f1-5a567afb%22&sourceContentType=image%2Fpng&resize=180,180&ignoreAspectRatio",
+      "tags": [
+        "teater",
+        "barn",
+        "ungdom",
+        "voksne",
+        "underholdning",
+        "kultur",
+        "forestilling"
+      ],
+      "ageGroups": [
+        "ungdom",
+        "voksne"
+      ],
+      "active": true,
+      "featured": false,
+      "addedDate": "2026-08-19",
+      "updatedDate": "2026-08-19"
     }
   ],
   "suggestions": [],
