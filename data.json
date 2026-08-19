@@ -3,7 +3,7 @@
     "lastUpdated": "2026-08-19",
     "version": "1.0",
     "description": "Ganddal portal – organisasjoner og tjenester",
-    "publishedAt": "2026-08-19T20:50:18.805Z"
+    "publishedAt": "2026-08-19T20:58:50.562Z"
   },
   "categories": [
     "Idrett og kultur",
@@ -633,7 +633,7 @@
         "voksne"
       ],
       "active": true,
-      "featured": false,
+      "featured": true,
       "addedDate": "2026-08-19",
       "updatedDate": "2026-08-19"
     }
